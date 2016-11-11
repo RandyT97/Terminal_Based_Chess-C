@@ -30,7 +30,8 @@ I want to make a chess program that has the following features:
     
     Bishop: Can move diagonally an unlimited distance.
     
-    Exceptions:
+  Exceptions:
+    
     The pawn can move forward two units from the starting position.
     In castling, if the path between a sides’ rook and king is clear, the player has an option of moving the rook to 
     the unit nearest the king and have the king move to the unit next to the rook in the direction of the rook's
