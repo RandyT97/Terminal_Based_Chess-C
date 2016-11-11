@@ -17,7 +17,8 @@ I want to make a chess program that has the following features:
   
     Knight: T-shaped 
     
-    NOTE: Aside from the knight, other pieces cannot simply go “through” other pieces. Only the knight has the ability to “jump” over occupied squares.
+      NOTE: Aside from the knight, other pieces cannot simply go “through” other pieces. 
+      Only the knight has the ability to “jump” over occupied squares.
     
     Rook: Can limitlessly move in the vertical and horizontal direction.
     
