@@ -1,4 +1,4 @@
-# beginnerchess
+# Basic Command Prompt Based Chess Program (C)
 Print based chess game in C
 I am going to code a chess program for my final project and will be working on this program on my own.
 I want to make a chess program that has the following features:
