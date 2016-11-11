@@ -3,7 +3,7 @@ Print based chess game in C
 I am going to code a chess program for my final project and will be working on this program on my own.
 I want to make a chess program that has the following features:
 
-Fundamental Features: Features that are essential and absolutely needed.
+#Fundamental Features: Features that are essential and absolutely needed.
   Proper setup of board:
   The starting position of a standard chess game should be like the following: (Image from:https://en.wikipedia.org/wiki/Chess)
 
@@ -20,28 +20,41 @@ Fundamental Features: Features that are essential and absolutely needed.
     NOTE: Aside from the knight, other pieces cannot simply go “through” other pieces. Only the knight has the ability to “jump” over occupied squares.
     
     Rook: Can limitlessly move in the vertical and horizontal direction.
+    
     Pawn: One piece forward, can only capture if piece is in a diagonal one coordinate away from the pawn.
+    
     Queen: Can limitlessly move throughout the board diagonally, horizontally and vertically.
+    
     King: Can move one unit in any direction.
+    
     Bishop: Can move diagonally an unlimited distance.
+    
     Exceptions:
     The pawn can move forward two units from the starting position.
-    In castling, if the path between a sides’ rook and king is clear, the player has an option of moving the rook to the unit nearest the king and have the king move to the unit next to the rook in the direction where the rook originally came from
-    In en pessant, if the pawn of user A has not moved, and pawn of user b threatens the unit in front of user A’s pawn, and user A decides to move the pawn two units forward in an attempt to avoid capture, user B can still capture and moves diagonally one unit as if user A moved the pawn only one unit forward.
+    In castling, if the path between a sides’ rook and king is clear, the player has an option of moving the rook to 
+    the unit nearest the king and have the king move to the unit next to the rook in the direction of the rook's
+    initial position.
+    
+    In en pessant, if the pawn of user A has not moved, and pawn of user b threatens the unit in front of user A’s
+    pawn, and user A decides to move the pawn two units forward in an attempt to avoid capture, user B can still 
+    capture and moves diagonally one unit as if user A moved the pawn only one unit forward.
+    
   Piece Promotion
   
-    When a user has moved a pawn of his/hers to the first row of the opposing side of the board, has the option to promote the pawn and replace it with any piece of choice other than king.
+    When a user has moved a pawn of his/hers to the first row of the opposing side of the board, has the option 
+    to promote the pawn and replace it with any piece of choice other than king.
     
   Making sure the two players have distinguishable pieces
   
-    Differentiate the two player’s pieces, as simply labeling each piece according to their name will confuse ownership of pieces.
+    Differentiate the two player’s pieces, as simply labeling each piece according to their name will confuse 
+    ownership of pieces.
     
     
   Endgame
   
     Game ends upon check mate
     
-Optional: Features that are not essential to chess gameplay:
+#Optional: Features that are not essential to chess gameplay:
 
 
    Game notations (text record of game)
@@ -52,9 +65,7 @@ Optional: Features that are not essential to chess gameplay:
   
     Prompt user for time options.
     
-  Other implementations of chess pieces such as Chess960 and Horde
-  
-  There are many different fun modes of chess that are played.
+  Chess variants:
   
     Chess960: Randomly generate the starting location of each person’s pieces in their first two rows
     
