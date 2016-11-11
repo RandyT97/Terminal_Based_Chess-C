@@ -3,7 +3,7 @@ Print based chess game in C
 I am going to code a chess program for my final project and will be working on this program on my own.
 I want to make a chess program that has the following features:
 
-#Fundamental Features: Features that are essential and absolutely needed.
+#Fundamental Features:
   Proper setup of board:
   The starting position of a standard chess game should be like the following: (Image from:https://en.wikipedia.org/wiki/Chess)
 
@@ -56,9 +56,7 @@ I want to make a chess program that has the following features:
   
     Game ends upon check mate
     
-#Optional: Features that are not essential to chess gameplay:
-
-
+#Optional Features:
    Game notations (text record of game)
    
      In chess there are different forms of notation in which the game can be recorded.
