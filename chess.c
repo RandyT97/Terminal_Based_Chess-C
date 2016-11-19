@@ -4,7 +4,16 @@ Chess.c
 */
 #include <stdio.h>
 #include <stdlib.h>
-void board(char board[8][8]);
+int playStandard(Player A, Player B);
+void boardStandard(char board[8][8]);
+int playHorde(Player A, Player B);
+void boardHorde(char board[8][8]);
+int playChess960(char board[8][8]);
+void board960(char board[8][8]);
+char move(char board[8][8], int initx, int inity, int x, int y);
+int isValid(char board[8][8], int initx, int inity, int x, int y);
+void kingSafe(char board[8][8],int x, int y);
+void castle(char board[8][8], int initx, int inity, int x, int y);
 void displayBoard(char board[8][8]);
 void knight(int x,int y);
 void queen(int x,int y);
@@ -12,8 +21,12 @@ void king(int x,int y);
 void rook(int x,int y);
 void bishop(int x,int y);
 void pawn(int x,int y);
+void promote(char board[8][8],char piece);
+int isCheck(char board[8][8]);
+int isCheckMate(char board[8][8]);
+void notate();
 
-
+//t
 int main() {
   int input=0;
   printf("Welcome to \"C\"hess!\n \n");
@@ -36,7 +49,7 @@ int main() {
 }
 
 //Populates board
-void board(char board[8][8]) {
+void boardStandard(char board[8][8]) {
   for(int i=0;i<8;i++) {
     for(int j=0;j<8;j++) {
       board[i][j]='-';
