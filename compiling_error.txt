@@ -1,0 +1,16 @@
+/Users/Randy/Documents/chess/chess.c:109:23: warning: incompatible pointer to integer conversion assigning to 'char' from 'char [2]' [-Wint-conversion]
+  board[initx][inity] = "-";
+                      ^ ~~~
+/Users/Randy/Documents/chess/chess.c:116:5: error: conflicting types for 'knight'
+int knight(char board[8][8], int initx, int inity,int x,int y) {
+    ^
+/Users/Randy/Documents/chess/chess.c:27:6: note: previous declaration is here
+void knight(char board[8][8], int initx, int inity, int x, int y);
+     ^
+/Users/Randy/Documents/chess/chess.c:137:64: error: expected ')'
+void queen(char board[8][8], int initx, int inity, int x, int y;
+                                                               ^
+/Users/Randy/Documents/chess/chess.c:137:11: note: to match this '('
+void queen(char board[8][8], int initx, int inity, int x, int y;
+          ^
+1 warning and 2 errors generated.
