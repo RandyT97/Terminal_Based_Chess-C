@@ -11,6 +11,7 @@ struct player{
   int win;
   int loss;
 };
+// REMEMBER TO CHECK FOR WHETHER IT IS IN THE BOARD ARRAY
 
 /*int playStandard(player A, player B);
 int playHorde(player A, player B);
@@ -18,18 +19,19 @@ void boardHorde(char board[8][8]);
 int playChess960(char board[8][8]);
 void board960(char board[8][8]);
 char move(char board[8][8], int initx, int inity, int x, int y);
+// REMEMBER TO CHECK FOR WHETHER FINAL POS IS IN THE BOARD[8][8] ARRAY
 int isValid(char board[8][8], int initx, int inity, int x, int y);
 void kingSafe(char board[8][8],int x, int y);
 void castle(char board[8][8], int initx, int inity, int x, int y);
 */
 void boardStandard(char board[8][8]);
 void displayBoard(char board[8][8]);
-void knight(char board[8][8], int initx, int inity, int x, int y);
-void queen(char board[8][8], int initx, int inity, int x, int y);
-void king(char board[8][8], int initx, int inity, int x, int y);
-void rook(char board[8][8], int initx, int inity, int x, int y);
-void bishop(char board[8][8], int initx, int inity, int x, int y);
-void pawn(char board[8][8], int initx, int inity, int x, int y);
+int knight(char board[8][8], int initx, int inity, int x, int y);
+int queen(char board[8][8], int initx, int inity, int x, int y);
+int king(char board[8][8], int initx, int inity, int x, int y);
+int rook(char board[8][8], int initx, int inity, int x, int y);
+int bishop(char board[8][8], int initx, int inity, int x, int y);
+int pawn(char board[8][8], int initx, int inity, int x, int y);
 void promote(char board[8][8],char piece);
 int isCheck(char board[8][8]);
 int isCheckMate(char board[8][8]);
@@ -112,7 +114,6 @@ void move(char board[8][8], int initx, int inity, int x, int y) {
 }
 //Preconditions: Board, initial x and y, and desired final location is passed
 //returns 0 if impossible, returns 1 if possible
-
 int knight(char board[8][8], int initx, int inity,int x,int y) {
   int possible[8][2] = {
     //There is probably a loop to better initialize this array
@@ -126,18 +127,55 @@ int knight(char board[8][8], int initx, int inity,int x,int y) {
     {initx+2,inity+1}
   };
   int flag=0;
+  //i hope this works.........
   for(int i=0;i<8;i++) {
     for(int j=0;j<2;j++) {
-      if( (x==possible[i][j]) && (y==possible[i][j]))
-        flag=1; //Move is valid
+      if((x==possible[i])&&(y==possible[j]))
+        flag=1;
     }
   }
   return flag;
 }
+
 int queen(char board[8][8], int initx, int inity, int x, int y) {
-  
+  int possible[]
+  int flag=0;
+  //if in same column or row it is a possible move
+  if((initx==x)||(inity==y))
+    flag=1;
+  else {
+    for(int i=initx,i<8;i++)
+      for(int j=inity,i<8;j++)
+
+  }
+
+
+
 }
-int king(char board[8][8], int initx, int inity, int x, int y);
-int rook(char board[8][8], int initx, int inity, int x, int y);
+int king(char board[8][8], int initx, int inity, int x, int y) {
+  int possible[8][2] = {
+    {initx-1,inity-1},
+    {initx-1,inity},
+    {initx-1,inity+1},
+    {initx,inity-1},
+    {initx,inity+1},
+    {initx+1,inity-1},
+    {initx+1,inity},
+    {initx+1,inity-1}
+  };
+  for(int i=0;i<8;i++) {
+    for(int j=0;j<8;j++) {
+      if((x==possible[i])&&(y==possible[j]))
+        flag=1;
+      }
+    }
+  return flag;
+}
+int rook(char board[8][8], int initx, int inity, int x, int y) {
+  int flag=0;
+  if((initx == x)||(inity==y))
+    flag=1;
+  return flag;
+}
 int bishop(char board[8][8], int initx, int inity, int x, int y);
 int pawn(char board[8][8], int initx, int inity, int x, int y);
