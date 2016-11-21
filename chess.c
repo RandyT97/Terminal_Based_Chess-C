@@ -36,6 +36,8 @@ void promote(char board[8][8],char piece);
 int isCheck(char board[8][8]);
 int isCheckMate(char board[8][8]);
 void notate();
+void playerMenu();
+
 //t
 int main() {
   int input=0;
@@ -126,7 +128,7 @@ int knight(char board[8][8], int initx, int inity,int x,int y) {
     {initx+2,inity+1}
   };
   int flag=0;
-  //i hope this works.........
+    //Search loop is functional
   for(int i=0;i<8;i++) {
       if((x==possible[i][0])&&(y==possible[i][1]))
         flag=1;
@@ -146,6 +148,7 @@ int king(char board[8][8], int initx, int inity, int x, int y) {
     {initx+1,inity},
     {initx+1,inity-1}
   };
+  //Search loop is functional
   for(int i=0;i<8;i++) {
       if((x==possible[i][0])&&(y==possible[i][1]))
         flag=1;
@@ -160,6 +163,7 @@ int pawn(char board[8][8], int initx, int inity, int x, int y) {
       {initx-1,inity},
       {initx-1,inity+1}
     };
+      //Search loop is functional
     for(int i=0;i<3;i++) {
         if((x==possibleP[i][0])&&(y==possibleP[i][1]))
           flag=1;
@@ -171,6 +175,7 @@ int pawn(char board[8][8], int initx, int inity, int x, int y) {
       {initx+1,inity},
       {initx+1,inity+1}
     };
+      //Search loop is functional
     for(int i=0;i<3;i++) {
         if((x==possibleP[i][0])&&(y==possibleP[i][1]))
           flag=1;
