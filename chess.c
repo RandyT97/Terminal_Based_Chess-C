@@ -108,10 +108,9 @@ void displayBoard(char board[8][8]) {
 //Pre-conditions: Move is already confirmed valid
 //Post-conditions: Deletes the piece from initial position and places it in final
 void move(char board[8][8], int initx, int inity, int x, int y) {
-  board[initx][inity] = "-";
-
-
+  board[initx][inity] = '-';
 }
+//ALL PIECE PATTERN FUNCTIONS INCLUDE ALL POSSIBLE MOVES INCLUDING EXCEPTIONS
 //Preconditions: Board, initial x and y, and desired final location is passed
 //returns 0 if impossible, returns 1 if possible
 int knight(char board[8][8], int initx, int inity,int x,int y) {
@@ -129,30 +128,14 @@ int knight(char board[8][8], int initx, int inity,int x,int y) {
   int flag=0;
   //i hope this works.........
   for(int i=0;i<8;i++) {
-    for(int j=0;j<2;j++) {
-      if((x==possible[i])&&(y==possible[j]))
+      if((x==possible[i][0])&&(y==possible[i][1]))
         flag=1;
-    }
   }
   return flag;
 }
 
-int queen(char board[8][8], int initx, int inity, int x, int y) {
-  int possible[]
-  int flag=0;
-  //if in same column or row it is a possible move
-  if((initx==x)||(inity==y))
-    flag=1;
-  else {
-    for(int i=initx,i<8;i++)
-      for(int j=inity,i<8;j++)
-
-  }
-
-
-
-}
 int king(char board[8][8], int initx, int inity, int x, int y) {
+  int flag=0;
   int possible[8][2] = {
     {initx-1,inity-1},
     {initx-1,inity},
@@ -164,12 +147,35 @@ int king(char board[8][8], int initx, int inity, int x, int y) {
     {initx+1,inity-1}
   };
   for(int i=0;i<8;i++) {
-    for(int j=0;j<8;j++) {
-      if((x==possible[i])&&(y==possible[j]))
+      if((x==possible[i][0])&&(y==possible[i][1]))
         flag=1;
-      }
     }
   return flag;
+}
+int pawn(char board[8][8], int initx, int inity, int x, int y) {
+  int flag=0;
+  if(board[initx][inity] == 'P') {
+    int possibleP[3][2] = {
+      {initx-1,inity-1},
+      {initx-1,inity},
+      {initx-1,inity+1}
+    };
+    for(int i=0;i<3;i++) {
+        if((x==possibleP[i][0])&&(y==possibleP[i][1]))
+          flag=1;
+    }
+  }
+  else {
+    int possibleP[3][2] = {
+      {initx+1,inity-1},
+      {initx+1,inity},
+      {initx+1,inity+1}
+    };
+    for(int i=0;i<3;i++) {
+        if((x==possibleP[i][0])&&(y==possibleP[i][1]))
+          flag=1;
+    }
+  }
 }
 int rook(char board[8][8], int initx, int inity, int x, int y) {
   int flag=0;
@@ -178,4 +184,16 @@ int rook(char board[8][8], int initx, int inity, int x, int y) {
   return flag;
 }
 int bishop(char board[8][8], int initx, int inity, int x, int y);
-int pawn(char board[8][8], int initx, int inity, int x, int y);
+
+/*int queen(char board[8][8], int initx, int inity, int x, int y) {
+  int possible[]
+  int flag=0;
+  //if in same column or row it is a possible move
+  if((initx==x)||(inity==y))
+    flag=1;
+  else {
+    for(int i=initx,i<8;i++)
+      for(int j=inity,i<8;j++)
+
+  }
+}*/
