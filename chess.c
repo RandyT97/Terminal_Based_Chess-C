@@ -13,7 +13,8 @@ struct player{
 };
 // REMEMBER TO CHECK FOR WHETHER IT IS IN THE BOARD ARRAY
 
-/*int playStandard(player A, player B);
+
+/*
 int playHorde(player A, player B);
 void boardHorde(char board[8][8]);
 int playChess960(char board[8][8]);
@@ -24,6 +25,7 @@ int isValid(char board[8][8], int initx, int inity, int x, int y);
 void kingSafe(char board[8][8],int x, int y);
 void castle(char board[8][8], int initx, int inity, int x, int y);
 */
+void getInfo();
 void boardStandard(char board[8][8]);
 void displayBoard(char board[8][8]);
 int knight(char board[8][8], int initx, int inity, int x, int y);
@@ -32,32 +34,33 @@ int king(char board[8][8], int initx, int inity, int x, int y);
 int rook(char board[8][8], int initx, int inity, int x, int y);
 int bishop(char board[8][8], int initx, int inity, int x, int y);
 int pawn(char board[8][8], int initx, int inity, int x, int y);
-void promote(char board[8][8],char piece);
+char promote();
 int isCheck(char board[8][8]);
 int isCheckMate(char board[8][8]);
 void notate();
 void playerMenu();
+int playStandard(player A, player B);
 
 //t
 int main() {
-  int input=0;
+  int input=5;
   printf("Welcome to \"C\"hess!\n \n");
   printf("What would you like to do?");
-  while(input!=5) {
-    printf("Chess Menu!\n1. Start a game\n5. Quit\n");
-    scanf("%d",&input);
-    switch(input) {
-      case(1):
-        printf("Starting a game!\n");
-        char currboard[8][8];
-        boardStandard(currboard);
-        displayBoard(currboard);
+  playerMenu();
 
-
+}
+void playerMenu() {
+  int input=0;
+  printf("1. Start a standard game\n");
+  printf("2. Create Player Profile\n");
+  printf("3. Print Player Statistics\n");
+  printf("4. Exit\n");
+  scanf("%d",&input);
+  switch(input) {
+    case(1): {
+      playStandard()
     }
   }
-
-
 }
 
 //Populates board
@@ -110,7 +113,40 @@ void displayBoard(char board[8][8]) {
 //Pre-conditions: Move is already confirmed valid
 //Post-conditions: Deletes the piece from initial position and places it in final
 void move(char board[8][8], int initx, int inity, int x, int y) {
-  board[initx][inity] = '-';
+  char piece = board[initx][inity];
+  int flag=0;
+  int flag1=0;
+  switch(piece) {
+    case('n'||'N'): {
+      flag = knight(board[8][8],initx,inity,x,y);
+    }
+    case('q'||'Q') {
+      flag = queen(board[8][8],initx,inity,x,y);
+    }
+    case('k'||'K') {
+      flag = king(board[8][8],initx,inity,x,y);
+    }
+    case('r'||'R') {
+      flag = rook(board[8][8],initx,inity,x,y);
+    }
+    case('b'||'B') {
+      flag = bishop(board[8][8],initx,inity,x,y);
+    }
+    case('p'||'P') {
+      flag = pawn(board[8][8],initx,inity,x,y);
+      if((y==7)||(y==0))
+        piece = promote();
+    }
+    board[initx][inity]='-';
+    board[x][y]=piece;
+  }
+
+}
+char promote() {//may be an issue, case sensitive?
+  char piece;
+  printf("What piece would you like to promote to?\n")
+  scanf("%c",&piece);
+  return piece;
 }
 //ALL PIECE PATTERN FUNCTIONS INCLUDE ALL POSSIBLE MOVES INCLUDING EXCEPTIONS
 //Preconditions: Board, initial x and y, and desired final location is passed
