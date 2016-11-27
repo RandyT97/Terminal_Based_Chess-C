@@ -135,7 +135,6 @@ int knight(char board[8][8], int initx, int inity,int x,int y) {
   }
   return flag;
 }
-
 int king(char board[8][8], int initx, int inity, int x, int y) {
   int flag=0;
   int possible[8][2] = {
@@ -185,20 +184,22 @@ int pawn(char board[8][8], int initx, int inity, int x, int y) {
 int rook(char board[8][8], int initx, int inity, int x, int y) {
   int flag=0;
   if((initx == x)||(inity==y))
-    flag=1;
+    if(!((initx == x)&&(inity==y)))
+        flag=1;
   return flag;
 }
-int bishop(char board[8][8], int initx, int inity, int x, int y);
-
-/*int queen(char board[8][8], int initx, int inity, int x, int y) {
-  int possible[]
+int bishop(char board[8][8], int initx, int inity, int x, int y) {
+  if(abs(x-initx)==abs(y-inity))
+    return 1;
+  else
+    return 0;
+}
+int queen(char board[8][8], int initx, int inity, int x, int y) {
   int flag=0;
-  //if in same column or row it is a possible move
-  if((initx==x)||(inity==y))
+  if((initx == x)||(inity==y)) //diagonals recycled from bishop
     flag=1;
-  else {
-    for(int i=initx,i<8;i++)
-      for(int j=inity,i<8;j++)
-
-  }
-}*/
+  if((initx == x)||(inity==y)) //row recycled from rooks
+    if(!((initx == x)&&(inity==y)))
+        flag=1;
+  return flag;
+}
