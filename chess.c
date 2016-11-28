@@ -4,6 +4,7 @@ Chess.c
 */
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 struct player{
   char fname[20];
@@ -62,7 +63,24 @@ void playerMenu() {
     }
   }
 }
-
+void playStandard(player A, player B) {//DEPENDS ON PRINTOUT LOCATIONS!!!
+  int game = 1;
+  int initialx;
+  int initialy;
+  int finalx;
+  int finaly;
+  char standardboard[8][8];
+  boardStandard(standardboard[8][8]);
+  while(game==1) {
+    displayBoard(standardboard[8][8]);
+    printf("Enter the location of your piece.\n");
+    scanf("%d",&initialx); //Depends on how location is prented
+    scanf("%d"&initialy); //^^
+    printf("Enter the final location\n");
+    scanf("%d",&finalx);
+    scanf("%d",&finaly);
+  }
+}
 //Populates board
 void boardStandard(char board[8][8]) {
   for(int i=0;i<8;i++) {
@@ -110,7 +128,7 @@ void displayBoard(char board[8][8]) {
   printf("\t[A]\t[B]\t[C]\t[D]\t[E]\t[F]\t[G]\t[H]\n");
 }
 
-//Pre-conditions: Move is already confirmed valid
+//Pre-conditions:
 //Post-conditions: Deletes the piece from initial position and places it in final
 void move(char board[8][8], int initx, int inity, int x, int y) {
   char piece = board[initx][inity];
@@ -134,14 +152,19 @@ void move(char board[8][8], int initx, int inity, int x, int y) {
     }
     case('p'||'P') {
       flag = pawn(board[8][8],initx,inity,x,y);
-      if((y==7)||(y==0))
+      if((x==7)||(x==0))
         piece = promote();
     }
-    board[initx][inity]='-';
-    board[x][y]=piece;
+    if(flag) {
+      board[initx][inity]='-';
+      board[x][y]=piece;
+    }
+    else
+      printf("Move is invalid, please try again.\n");
   }
 
 }
+
 char promote() {//may be an issue, case sensitive?
   char piece;
   printf("What piece would you like to promote to?\n")
