@@ -13,14 +13,12 @@ struct player{
   int loss;
 };
 // REMEMBER TO CHECK FOR WHETHER IT IS IN THE BOARD ARRAY
-
-
 /*
 int playHorde(player A, player B);
 void boardHorde(char board[8][8]);
 int playChess960(char board[8][8]);
 void board960(char board[8][8]);
-char move(char board[8][8], int initx, int inity, int x, int y);
+
 // REMEMBER TO CHECK FOR WHETHER FINAL POS IS IN THE BOARD[8][8] ARRAY
 int isValid(char board[8][8], int initx, int inity, int x, int y);
 void kingSafe(char board[8][8],int x, int y);
@@ -35,6 +33,7 @@ int king(char board[8][8], int initx, int inity, int x, int y);
 int rook(char board[8][8], int initx, int inity, int x, int y);
 int bishop(char board[8][8], int initx, int inity, int x, int y);
 int pawn(char board[8][8], int initx, int inity, int x, int y);
+char move(char board[8][8], int initx, int inity, int x, int y);x
 char promote();
 int isCheck(char board[8][8]);
 int isCheckMate(char board[8][8]);
@@ -63,6 +62,7 @@ void playerMenu() {
     }
   }
 }
+// STANDARD BOARD MATERIALS
 void playStandard(player A, player B) {//DEPENDS ON PRINTOUT LOCATIONS!!!
   int game = 1;
   int initialx;
@@ -173,7 +173,7 @@ char promote() {//may be an issue, case sensitive?
 }
 //ALL PIECE PATTERN FUNCTIONS INCLUDE ALL POSSIBLE MOVES INCLUDING EXCEPTIONS
 //Preconditions: Board, initial x and y, and desired final location is passed
-//returns 0 if impossible, returns 1 if possible
+//returns 0 if impossible, returns 1 if possible.
 int knight(char board[8][8], int initx, int inity,int x,int y) {
   int possible[8][2] = {
     //There is probably a loop to better initialize this array
@@ -213,6 +213,7 @@ int king(char board[8][8], int initx, int inity, int x, int y) {
     }
   return flag;
 }
+//TODO: Find a way to determine which side the pawn came from
 int pawn(char board[8][8], int initx, int inity, int x, int y) {
   int flag=0;
   if(board[initx][inity] == 'P') {
@@ -242,8 +243,8 @@ int pawn(char board[8][8], int initx, int inity, int x, int y) {
 }
 int rook(char board[8][8], int initx, int inity, int x, int y) {
   int flag=0;
-  if((initx == x)||(inity==y))
-    if(!((initx == x)&&(inity==y)))
+  if((initx == x)||(inity == y))
+    if(!((initx == x)&&(inity == y)))
         flag=1;
   return flag;
 }
@@ -255,10 +256,10 @@ int bishop(char board[8][8], int initx, int inity, int x, int y) {
 }
 int queen(char board[8][8], int initx, int inity, int x, int y) {
   int flag=0;
-  if((initx == x)||(inity==y)) //diagonals recycled from bishop
+  if((initx == x)||(inity == y)) //diagonals recycled from bishop
     flag=1;
-  if((initx == x)||(inity==y)) //row recycled from rooks
-    if(!((initx == x)&&(inity==y)))
+  if((initx == x)||(inity == y)) //row recycled from rooks
+    if(!((initx == x)&&(inity == y)))
         flag=1;
   return flag;
 }
