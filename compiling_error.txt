@@ -1,238 +1,241 @@
-/Users/Randy/Documents/chess/chess.c:43:18: error: must use 'struct' tag to refer to type 'player'
-int playStandard(player A, player B);
-                 ^
-                 struct 
-/Users/Randy/Documents/chess/chess.c:43:28: error: must use 'struct' tag to refer to type 'player'
-int playStandard(player A, player B);
-                           ^
-                           struct 
-/Users/Randy/Documents/chess/chess.c:63:20: error: too few arguments to function call, expected 2, have 0
-      playStandard()
-      ~~~~~~~~~~~~ ^
-/Users/Randy/Documents/chess/chess.c:43:1: note: 'playStandard' declared here
-int playStandard(player A, player B);
+/Users/Randy/Documents/chess/chess.c:64:22: error: expected expression
+        playStandard(struct player a, struct player b);
+                     ^
+/Users/Randy/Documents/chess/chess.c:64:39: error: expected expression
+        playStandard(struct player a, struct player b);
+                                      ^
+/Users/Randy/Documents/chess/chess.c:69:1: error: extraneous closing brace ('}')
+}
 ^
-/Users/Randy/Documents/chess/chess.c:67:19: error: must use 'struct' tag to refer to type 'player'
-void playStandard(player A, player B) {
-                  ^
-                  struct 
-/Users/Randy/Documents/chess/chess.c:67:29: error: must use 'struct' tag to refer to type 'player'
-void playStandard(player A, player B) {
-                            ^
-                            struct 
-/Users/Randy/Documents/chess/chess.c:67:6: error: conflicting types for 'playStandard'
-void playStandard(player A, player B) {
-     ^
-/Users/Randy/Documents/chess/chess.c:43:5: note: previous declaration is here
-int playStandard(player A, player B);
-    ^
-/Users/Randy/Documents/chess/chess.c:70:17: warning: incompatible integer to pointer conversion passing 'char' to parameter of type 'char (*)[8]' [-Wint-conversion]
+/Users/Randy/Documents/chess/chess.c:75:14: warning: format specifies type 'char *' but the argument has type 'int' [-Wformat]
+  scanf("%s",fname[20]);
+         ~~  ^~~~~~~~~
+/Users/Randy/Documents/chess/chess.c:77:14: warning: format specifies type 'char *' but the argument has type 'int' [-Wformat]
+  scanf("%s",lname[20]);
+         ~~  ^~~~~~~~~
+/Users/Randy/Documents/chess/chess.c:75:14: warning: array index 20 is past the end of the array (which contains 20 elements) [-Warray-bounds]
+  scanf("%s",fname[20]);
+             ^     ~~
+/Users/Randy/Documents/chess/chess.c:71:3: note: array 'fname' declared here
+  char fname[20];
+  ^
+/Users/Randy/Documents/chess/chess.c:77:14: warning: array index 20 is past the end of the array (which contains 20 elements) [-Warray-bounds]
+  scanf("%s",lname[20]);
+             ^     ~~
+/Users/Randy/Documents/chess/chess.c:72:3: note: array 'lname' declared here
+  char lname[20];
+  ^
+/Users/Randy/Documents/chess/chess.c:87:17: warning: incompatible integer to pointer conversion passing 'char' to parameter of type 'char (*)[8]' [-Wint-conversion]
   boardStandard(standardboard[8][8]);
                 ^~~~~~~~~~~~~~~~~~~
-/Users/Randy/Documents/chess/chess.c:30:25: note: passing argument to parameter 'board' here
+/Users/Randy/Documents/chess/chess.c:28:25: note: passing argument to parameter 'board' here
 void boardStandard(char board[8][8]);
                         ^
-/Users/Randy/Documents/chess/chess.c:72:18: warning: incompatible integer to pointer conversion passing 'char' to parameter of type 'char (*)[8]' [-Wint-conversion]
+/Users/Randy/Documents/chess/chess.c:89:18: warning: incompatible integer to pointer conversion passing 'char' to parameter of type 'char (*)[8]' [-Wint-conversion]
     displayBoard(standardboard[8][8]);
                  ^~~~~~~~~~~~~~~~~~~
-/Users/Randy/Documents/chess/chess.c:31:24: note: passing argument to parameter 'board' here
+/Users/Randy/Documents/chess/chess.c:29:24: note: passing argument to parameter 'board' here
 void displayBoard(char board[8][8]);
                        ^
-/Users/Randy/Documents/chess/chess.c:70:17: warning: array index 8 is past the end of the array (which contains 8 elements) [-Warray-bounds]
+/Users/Randy/Documents/chess/chess.c:92:15: error: invalid operands to binary expression ('char *' and 'int')
+    scanf("%d"&initialy); //^^
+          ~~~~^~~~~~~~~
+/Users/Randy/Documents/chess/chess.c:96:10: warning: incompatible integer to pointer conversion passing 'char' to parameter of type 'char (*)[8]' [-Wint-conversion]
+    move(standardboard[8][8], initialx, initialy, finalx, finaly);
+         ^~~~~~~~~~~~~~~~~~~
+/Users/Randy/Documents/chess/chess.c:36:16: note: passing argument to parameter 'board' here
+char move(char board[8][8], int initx, int inity, int x, int y);
+               ^
+/Users/Randy/Documents/chess/chess.c:87:17: warning: array index 8 is past the end of the array (which contains 8 elements) [-Warray-bounds]
   boardStandard(standardboard[8][8]);
                 ^                ~
-/Users/Randy/Documents/chess/chess.c:69:3: note: array 'standardboard' declared here
+/Users/Randy/Documents/chess/chess.c:86:3: note: array 'standardboard' declared here
   char standardboard[8][8];
   ^
-/Users/Randy/Documents/chess/chess.c:72:18: warning: array index 8 is past the end of the array (which contains 8 elements) [-Warray-bounds]
+/Users/Randy/Documents/chess/chess.c:89:18: warning: array index 8 is past the end of the array (which contains 8 elements) [-Warray-bounds]
     displayBoard(standardboard[8][8]);
                  ^                ~
-/Users/Randy/Documents/chess/chess.c:69:3: note: array 'standardboard' declared here
+/Users/Randy/Documents/chess/chess.c:86:3: note: array 'standardboard' declared here
   char standardboard[8][8];
   ^
-/Users/Randy/Documents/chess/chess.c:129:13: warning: use of logical '||' with constant operand [-Wconstant-logical-operand]
+/Users/Randy/Documents/chess/chess.c:96:10: warning: array index 8 is past the end of the array (which contains 8 elements) [-Warray-bounds]
+    move(standardboard[8][8], initialx, initialy, finalx, finaly);
+         ^                ~
+/Users/Randy/Documents/chess/chess.c:86:3: note: array 'standardboard' declared here
+  char standardboard[8][8];
+  ^
+/Users/Randy/Documents/chess/chess.c:148:6: error: conflicting types for 'move'
+void move(char board[8][8], int initx, int inity, int x, int y) {
+     ^
+/Users/Randy/Documents/chess/chess.c:36:6: note: previous declaration is here
+char move(char board[8][8], int initx, int inity, int x, int y);
+     ^
+/Users/Randy/Documents/chess/chess.c:153:13: warning: use of logical '||' with constant operand [-Wconstant-logical-operand]
     case('n'||'N'): {
             ^ ~~~
-/Users/Randy/Documents/chess/chess.c:129:13: note: use '|' for a bitwise operation
+/Users/Randy/Documents/chess/chess.c:153:13: note: use '|' for a bitwise operation
     case('n'||'N'): {
             ^~~~~
             |
-/Users/Randy/Documents/chess/chess.c:130:21: warning: incompatible integer to pointer conversion passing 'char' to parameter of type 'char (*)[8]' [-Wint-conversion]
+/Users/Randy/Documents/chess/chess.c:154:21: warning: incompatible integer to pointer conversion passing 'char' to parameter of type 'char (*)[8]' [-Wint-conversion]
       flag = knight(board[8][8],initx,inity,x,y);
                     ^~~~~~~~~~~
-/Users/Randy/Documents/chess/chess.c:32:17: note: passing argument to parameter 'board' here
+/Users/Randy/Documents/chess/chess.c:30:17: note: passing argument to parameter 'board' here
 int knight(char board[8][8], int initx, int inity, int x, int y);
                 ^
-/Users/Randy/Documents/chess/chess.c:132:13: warning: use of logical '||' with constant operand [-Wconstant-logical-operand]
+/Users/Randy/Documents/chess/chess.c:156:13: warning: use of logical '||' with constant operand [-Wconstant-logical-operand]
     case('q'||'Q') {
             ^ ~~~
-/Users/Randy/Documents/chess/chess.c:132:13: note: use '|' for a bitwise operation
+/Users/Randy/Documents/chess/chess.c:156:13: note: use '|' for a bitwise operation
     case('q'||'Q') {
             ^~~~~
             |
-/Users/Randy/Documents/chess/chess.c:132:19: error: expected ':' after 'case'
+/Users/Randy/Documents/chess/chess.c:156:19: error: expected ':' after 'case'
     case('q'||'Q') {
                   ^
                   :
-/Users/Randy/Documents/chess/chess.c:133:20: warning: incompatible integer to pointer conversion passing 'char' to parameter of type 'char (*)[8]' [-Wint-conversion]
+/Users/Randy/Documents/chess/chess.c:157:20: warning: incompatible integer to pointer conversion passing 'char' to parameter of type 'char (*)[8]' [-Wint-conversion]
       flag = queen(board[8][8],initx,inity,x,y);
                    ^~~~~~~~~~~
-/Users/Randy/Documents/chess/chess.c:33:16: note: passing argument to parameter 'board' here
+/Users/Randy/Documents/chess/chess.c:31:16: note: passing argument to parameter 'board' here
 int queen(char board[8][8], int initx, int inity, int x, int y);
                ^
-/Users/Randy/Documents/chess/chess.c:135:13: warning: use of logical '||' with constant operand [-Wconstant-logical-operand]
+/Users/Randy/Documents/chess/chess.c:159:13: warning: use of logical '||' with constant operand [-Wconstant-logical-operand]
     case('k'||'K') {
             ^ ~~~
-/Users/Randy/Documents/chess/chess.c:135:13: note: use '|' for a bitwise operation
+/Users/Randy/Documents/chess/chess.c:159:13: note: use '|' for a bitwise operation
     case('k'||'K') {
             ^~~~~
             |
-/Users/Randy/Documents/chess/chess.c:135:19: error: expected ':' after 'case'
+/Users/Randy/Documents/chess/chess.c:159:19: error: expected ':' after 'case'
     case('k'||'K') {
                   ^
                   :
-/Users/Randy/Documents/chess/chess.c:136:19: warning: incompatible integer to pointer conversion passing 'char' to parameter of type 'char (*)[8]' [-Wint-conversion]
+/Users/Randy/Documents/chess/chess.c:160:19: warning: incompatible integer to pointer conversion passing 'char' to parameter of type 'char (*)[8]' [-Wint-conversion]
       flag = king(board[8][8],initx,inity,x,y);
                   ^~~~~~~~~~~
-/Users/Randy/Documents/chess/chess.c:34:15: note: passing argument to parameter 'board' here
+/Users/Randy/Documents/chess/chess.c:32:15: note: passing argument to parameter 'board' here
 int king(char board[8][8], int initx, int inity, int x, int y);
               ^
-/Users/Randy/Documents/chess/chess.c:138:13: warning: use of logical '||' with constant operand [-Wconstant-logical-operand]
+/Users/Randy/Documents/chess/chess.c:162:13: warning: use of logical '||' with constant operand [-Wconstant-logical-operand]
     case('r'||'R') {
             ^ ~~~
-/Users/Randy/Documents/chess/chess.c:138:13: note: use '|' for a bitwise operation
+/Users/Randy/Documents/chess/chess.c:162:13: note: use '|' for a bitwise operation
     case('r'||'R') {
             ^~~~~
             |
-/Users/Randy/Documents/chess/chess.c:138:19: error: expected ':' after 'case'
+/Users/Randy/Documents/chess/chess.c:162:19: error: expected ':' after 'case'
     case('r'||'R') {
                   ^
                   :
-/Users/Randy/Documents/chess/chess.c:139:19: warning: incompatible integer to pointer conversion passing 'char' to parameter of type 'char (*)[8]' [-Wint-conversion]
+/Users/Randy/Documents/chess/chess.c:163:19: warning: incompatible integer to pointer conversion passing 'char' to parameter of type 'char (*)[8]' [-Wint-conversion]
       flag = rook(board[8][8],initx,inity,x,y);
                   ^~~~~~~~~~~
-/Users/Randy/Documents/chess/chess.c:35:15: note: passing argument to parameter 'board' here
+/Users/Randy/Documents/chess/chess.c:33:15: note: passing argument to parameter 'board' here
 int rook(char board[8][8], int initx, int inity, int x, int y);
               ^
-/Users/Randy/Documents/chess/chess.c:141:13: warning: use of logical '||' with constant operand [-Wconstant-logical-operand]
+/Users/Randy/Documents/chess/chess.c:165:13: warning: use of logical '||' with constant operand [-Wconstant-logical-operand]
     case('b'||'B') {
             ^ ~~~
-/Users/Randy/Documents/chess/chess.c:141:13: note: use '|' for a bitwise operation
+/Users/Randy/Documents/chess/chess.c:165:13: note: use '|' for a bitwise operation
     case('b'||'B') {
             ^~~~~
             |
-/Users/Randy/Documents/chess/chess.c:141:19: error: expected ':' after 'case'
+/Users/Randy/Documents/chess/chess.c:165:19: error: expected ':' after 'case'
     case('b'||'B') {
                   ^
                   :
-/Users/Randy/Documents/chess/chess.c:142:21: warning: incompatible integer to pointer conversion passing 'char' to parameter of type 'char (*)[8]' [-Wint-conversion]
+/Users/Randy/Documents/chess/chess.c:166:21: warning: incompatible integer to pointer conversion passing 'char' to parameter of type 'char (*)[8]' [-Wint-conversion]
       flag = bishop(board[8][8],initx,inity,x,y);
                     ^~~~~~~~~~~
-/Users/Randy/Documents/chess/chess.c:36:17: note: passing argument to parameter 'board' here
+/Users/Randy/Documents/chess/chess.c:34:17: note: passing argument to parameter 'board' here
 int bishop(char board[8][8], int initx, int inity, int x, int y);
                 ^
-/Users/Randy/Documents/chess/chess.c:144:13: warning: use of logical '||' with constant operand [-Wconstant-logical-operand]
+/Users/Randy/Documents/chess/chess.c:168:13: warning: use of logical '||' with constant operand [-Wconstant-logical-operand]
     case('p'||'P') {
             ^ ~~~
-/Users/Randy/Documents/chess/chess.c:144:13: note: use '|' for a bitwise operation
+/Users/Randy/Documents/chess/chess.c:168:13: note: use '|' for a bitwise operation
     case('p'||'P') {
             ^~~~~
             |
-/Users/Randy/Documents/chess/chess.c:144:19: error: expected ':' after 'case'
+/Users/Randy/Documents/chess/chess.c:168:19: error: expected ':' after 'case'
     case('p'||'P') {
                   ^
                   :
-/Users/Randy/Documents/chess/chess.c:145:19: warning: incompatible integer to pointer conversion passing 'char' to parameter of type 'char (*)[8]' [-Wint-conversion]
+/Users/Randy/Documents/chess/chess.c:169:19: warning: incompatible integer to pointer conversion passing 'char' to parameter of type 'char (*)[8]' [-Wint-conversion]
       flag = pawn(board[8][8],initx,inity,x,y);
                   ^~~~~~~~~~~
-/Users/Randy/Documents/chess/chess.c:37:15: note: passing argument to parameter 'board' here
+/Users/Randy/Documents/chess/chess.c:35:15: note: passing argument to parameter 'board' here
 int pawn(char board[8][8], int initx, int inity, int x, int y);
               ^
-/Users/Randy/Documents/chess/chess.c:132:9: error: duplicate case value '1'
+/Users/Randy/Documents/chess/chess.c:156:9: error: duplicate case value '1'
     case('q'||'Q') {
         ^
-/Users/Randy/Documents/chess/chess.c:129:9: note: previous case defined here
+/Users/Randy/Documents/chess/chess.c:153:9: note: previous case defined here
     case('n'||'N'): {
         ^
-/Users/Randy/Documents/chess/chess.c:135:9: error: duplicate case value '1'
+/Users/Randy/Documents/chess/chess.c:159:9: error: duplicate case value '1'
     case('k'||'K') {
         ^
-/Users/Randy/Documents/chess/chess.c:132:9: note: previous case defined here
+/Users/Randy/Documents/chess/chess.c:156:9: note: previous case defined here
     case('q'||'Q') {
         ^
-/Users/Randy/Documents/chess/chess.c:138:9: error: duplicate case value '1'
+/Users/Randy/Documents/chess/chess.c:162:9: error: duplicate case value '1'
     case('r'||'R') {
         ^
-/Users/Randy/Documents/chess/chess.c:135:9: note: previous case defined here
+/Users/Randy/Documents/chess/chess.c:159:9: note: previous case defined here
     case('k'||'K') {
         ^
-/Users/Randy/Documents/chess/chess.c:141:9: error: duplicate case value '1'
+/Users/Randy/Documents/chess/chess.c:165:9: error: duplicate case value '1'
     case('b'||'B') {
         ^
-/Users/Randy/Documents/chess/chess.c:138:9: note: previous case defined here
+/Users/Randy/Documents/chess/chess.c:162:9: note: previous case defined here
     case('r'||'R') {
         ^
-/Users/Randy/Documents/chess/chess.c:144:9: error: duplicate case value '1'
+/Users/Randy/Documents/chess/chess.c:168:9: error: duplicate case value '1'
     case('p'||'P') {
         ^
-/Users/Randy/Documents/chess/chess.c:141:9: note: previous case defined here
+/Users/Randy/Documents/chess/chess.c:165:9: note: previous case defined here
     case('b'||'B') {
         ^
-/Users/Randy/Documents/chess/chess.c:130:21: warning: array index 8 is past the end of the array (which contains 8 elements) [-Warray-bounds]
+/Users/Randy/Documents/chess/chess.c:154:21: warning: array index 8 is past the end of the array (which contains 8 elements) [-Warray-bounds]
       flag = knight(board[8][8],initx,inity,x,y);
                     ^        ~
-/Users/Randy/Documents/chess/chess.c:124:11: note: array 'board' declared here
+/Users/Randy/Documents/chess/chess.c:148:11: note: array 'board' declared here
 void move(char board[8][8], int initx, int inity, int x, int y) {
           ^
-/Users/Randy/Documents/chess/chess.c:133:20: warning: array index 8 is past the end of the array (which contains 8 elements) [-Warray-bounds]
+/Users/Randy/Documents/chess/chess.c:157:20: warning: array index 8 is past the end of the array (which contains 8 elements) [-Warray-bounds]
       flag = queen(board[8][8],initx,inity,x,y);
                    ^        ~
-/Users/Randy/Documents/chess/chess.c:124:11: note: array 'board' declared here
+/Users/Randy/Documents/chess/chess.c:148:11: note: array 'board' declared here
 void move(char board[8][8], int initx, int inity, int x, int y) {
           ^
-/Users/Randy/Documents/chess/chess.c:136:19: warning: array index 8 is past the end of the array (which contains 8 elements) [-Warray-bounds]
+/Users/Randy/Documents/chess/chess.c:160:19: warning: array index 8 is past the end of the array (which contains 8 elements) [-Warray-bounds]
       flag = king(board[8][8],initx,inity,x,y);
                   ^        ~
-/Users/Randy/Documents/chess/chess.c:124:11: note: array 'board' declared here
+/Users/Randy/Documents/chess/chess.c:148:11: note: array 'board' declared here
 void move(char board[8][8], int initx, int inity, int x, int y) {
           ^
-/Users/Randy/Documents/chess/chess.c:139:19: warning: array index 8 is past the end of the array (which contains 8 elements) [-Warray-bounds]
+/Users/Randy/Documents/chess/chess.c:163:19: warning: array index 8 is past the end of the array (which contains 8 elements) [-Warray-bounds]
       flag = rook(board[8][8],initx,inity,x,y);
                   ^        ~
-/Users/Randy/Documents/chess/chess.c:124:11: note: array 'board' declared here
+/Users/Randy/Documents/chess/chess.c:148:11: note: array 'board' declared here
 void move(char board[8][8], int initx, int inity, int x, int y) {
           ^
-/Users/Randy/Documents/chess/chess.c:142:21: warning: array index 8 is past the end of the array (which contains 8 elements) [-Warray-bounds]
+/Users/Randy/Documents/chess/chess.c:166:21: warning: array index 8 is past the end of the array (which contains 8 elements) [-Warray-bounds]
       flag = bishop(board[8][8],initx,inity,x,y);
                     ^        ~
-/Users/Randy/Documents/chess/chess.c:124:11: note: array 'board' declared here
+/Users/Randy/Documents/chess/chess.c:148:11: note: array 'board' declared here
 void move(char board[8][8], int initx, int inity, int x, int y) {
           ^
-/Users/Randy/Documents/chess/chess.c:145:19: warning: array index 8 is past the end of the array (which contains 8 elements) [-Warray-bounds]
+/Users/Randy/Documents/chess/chess.c:169:19: warning: array index 8 is past the end of the array (which contains 8 elements) [-Warray-bounds]
       flag = pawn(board[8][8],initx,inity,x,y);
                   ^        ~
-/Users/Randy/Documents/chess/chess.c:124:11: note: array 'board' declared here
+/Users/Randy/Documents/chess/chess.c:148:11: note: array 'board' declared here
 void move(char board[8][8], int initx, int inity, int x, int y) {
           ^
-/Users/Randy/Documents/chess/chess.c:155:5: error: conflicting types for 'toCoord'
-int toCoord(char y) {
-    ^
-/Users/Randy/Documents/chess/chess.c:44:5: note: previous declaration is here
-int toCoord(char a, int b);
-    ^
-/Users/Randy/Documents/chess/chess.c:158:9: warning: using the result of an assignment as a condition without parentheses [-Wparentheses]
-    if(y=files[i])
-       ~^~~~~~~~~
-/Users/Randy/Documents/chess/chess.c:158:9: note: place parentheses around the assignment to silence this warning
-    if(y=files[i])
-        ^
-       (         )
-/Users/Randy/Documents/chess/chess.c:158:9: note: use '==' to turn this assignment into an equality comparison
-    if(y=files[i])
-        ^
-        ==
-/Users/Randy/Documents/chess/chess.c:164:55: error: expected ';' after expression
+/Users/Randy/Documents/chess/chess.c:185:55: error: expected ';' after expression
   printf("What piece would you like to promote to?\n")
                                                       ^
                                                       ;
-23 warnings and 18 errors generated.
+28 warnings and 16 errors generated.

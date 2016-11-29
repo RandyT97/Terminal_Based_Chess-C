@@ -5,10 +5,11 @@ Chess.c
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
+#define LENGTH LENGTH
 
 struct player{
-  char fname[20];
-  char lname[20];
+  char fname[LENGTH];
+  char lname[LENGTH];
   int win;
   int loss;
 };
@@ -33,37 +34,64 @@ int king(char board[8][8], int initx, int inity, int x, int y);
 int rook(char board[8][8], int initx, int inity, int x, int y);
 int bishop(char board[8][8], int initx, int inity, int x, int y);
 int pawn(char board[8][8], int initx, int inity, int x, int y);
-char move(char board[8][8], int initx, int inity, int x, int y);x
+char move(char board[8][8], int initx, int inity, int x, int y);
 char promote();
 int isCheck(char board[8][8]);
 int isCheckMate(char board[8][8]);
-void notate();
-void playerMenu();
-int playStandard(player A, player B);
+void notate(int x, int y);
+void playerMenu(FILE * ifp);
+void createProfile(char username[LENGTH]);
+void playStandard(struct player a, struct player b);
+void printProfiles(FILE * ifp);
 
 //t
 int main() {
   int input=5;
+  char fileexists;
+  char path[70];
+  FILE * ifp;
+  printf("Are you importing an existing playerbase? Answer Y/N\n");
+  scanf("%c",&fileexists);
+  if(fileexists) {
+    printf("What is the file path?\n");
+    scanf("%s",path);
+    ifp = fopen(path,"a");
+  }
+  else {
+    ifp = fopen("chessplayers.txt","w"); //new file created
+  }
   printf("Welcome to \"C\"hess!\n \n");
   printf("What would you like to do?");
-  playerMenu();
+  playerMenu(ifp);
 
 }
-void playerMenu() {
+void playerMenu(FILE * ifp) {
   int input=0;
+  char username[LENGTH];
   printf("1. Start a standard game\n");
   printf("2. Create Player Profile\n");
   printf("3. Print Player Statistics\n");
   printf("4. Exit\n");
   scanf("%d",&input);
-  switch(input) {
-    case(1): {
-      playStandard()
+  while(input!=5)
+    switch(input) {
+      case(1):
+        playStandard(player a, player b);
+      case(2): {
+        printf("What is your desired username?");
+        scanf("%s",&username);
+        createProfile(username);
+        }
+      }
     }
-  }
 }
+void createProfile(FILE * fp,char username[LENGTH]) {
+
+}
+
+
 // STANDARD BOARD MATERIALS
-void playStandard(player A, player B) {//DEPENDS ON PRINTOUT LOCATIONS!!!
+void playStandard(struct player A, struct player B) {//DEPENDS ON PRINTOUT LOCATIONS!!!
   int game = 1;
   int initialx;
   int initialy;
@@ -79,6 +107,7 @@ void playStandard(player A, player B) {//DEPENDS ON PRINTOUT LOCATIONS!!!
     printf("Enter the final location\n");
     scanf("%d",&finalx);
     scanf("%d",&finaly);
+    move(standardboard[8][8], initialx, initialy, finalx, finaly);
   }
 }
 //Populates board
