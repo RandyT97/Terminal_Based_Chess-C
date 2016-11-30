@@ -5,7 +5,7 @@ Chess.c
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
-#define LENGTH LENGTH
+#define LENGTH 20
 
 struct player{
   char fname[LENGTH];
@@ -56,6 +56,7 @@ int main() {
     printf("What is the file path?\n");
     scanf("%s",path);
     ifp = fopen(path,"a");
+    fprintf(ifp,"\n");
   }
   else {
     ifp = fopen("chessplayers.txt","w"); //new file created
@@ -76,7 +77,7 @@ void playerMenu(FILE * ifp) {
   while(input!=5)
     switch(input) {
       case(1):
-        playStandard(player a, player b);
+        playStandard(struct player a, struct player b);
       case(2): {
         printf("What is your desired username?");
         scanf("%s",&username);
@@ -86,12 +87,19 @@ void playerMenu(FILE * ifp) {
     }
 }
 void createProfile(FILE * fp,char username[LENGTH]) {
-
+  char fname[LENGTH];
+  char lname[LENGTH];
+  fprintf("%s ",username);
+  printf("Please input first name\n");
+  scanf("%s ",fname);
+  printf("Please input last name\n");
+  scanf("%s\n",lname);
+  fprintf(fp,"%s %s\n",fname,lname);
 }
 
 
 // STANDARD BOARD MATERIALS
-void playStandard(struct player A, struct player B) {//DEPENDS ON PRINTOUT LOCATIONS!!!
+void playStandard(struct player a, struct player a) {//DEPENDS ON PRINTOUT LOCATIONS!!!
   int game = 1;
   int initialx;
   int initialy;
