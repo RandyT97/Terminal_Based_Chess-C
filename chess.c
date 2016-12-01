@@ -64,7 +64,7 @@ int main() {
     ifp = fopen("chessplayers.txt","w"); //new file created
   }
   printf("Welcome to \"C\"hess!\n \n");
-  printf("What would you like to do?");
+  printf("What would you like to do?\n");
   playerMenu(ifp);
 
 }
@@ -80,7 +80,7 @@ void playerMenu(FILE * ifp) {
   printf("3. Print Player Statistics\n");
   printf("4. Exit\n");
   scanf("%d",&input);
-  while(input!=5)
+  while(input!=4)
     switch(input) {
       case(1):
         playStandard();
