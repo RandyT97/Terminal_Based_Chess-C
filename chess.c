@@ -34,15 +34,17 @@ int king(char board[8][8], int initx, int inity, int x, int y);
 int rook(char board[8][8], int initx, int inity, int x, int y);
 int bishop(char board[8][8], int initx, int inity, int x, int y);
 int pawn(char board[8][8], int initx, int inity, int x, int y);
-char move(char board[8][8], int initx, int inity, int x, int y);
+void move(char board[8][8], int initx, int inity, int x, int y);
 char promote();
 int isCheck(char board[8][8]);
 int isCheckMate(char board[8][8]);
 void notate(int x, int y);
 void playerMenu(FILE * ifp);
-void createProfile(char username[LENGTH]);
-void playStandard(struct player a, struct player b);
-void printProfiles(FILE * ifp);
+
+void playStandard();
+//void printProfiles(FILE * ifp);
+//void scanProfiles(FILE * ifp);
+//void createProfile(FILE * fp,char username[LENGTH]);
 
 //t
 int main() {
@@ -66,9 +68,13 @@ int main() {
   playerMenu(ifp);
 
 }
+/*void scanProfiles(FILE * ifp) { //find a way to scan a file
+  struct player entries[100];
+}*/
 void playerMenu(FILE * ifp) {
   int input=0;
   char username[LENGTH];
+  char username2[LENGTH];
   printf("1. Start a standard game\n");
   printf("2. Create Player Profile\n");
   printf("3. Print Player Statistics\n");
@@ -77,16 +83,15 @@ void playerMenu(FILE * ifp) {
   while(input!=5)
     switch(input) {
       case(1):
-        playStandard(struct player a, struct player b);
+        playStandard();
       case(2): {
         printf("What is your desired username?");
-        scanf("%s",&username);
-        createProfile(username);
+        scanf("%s",username);
+        //createProfile(username);
         }
-      }
-    }
+  }
 }
-void createProfile(FILE * fp,char username[LENGTH]) {
+/*void createProfile(FILE * fp,char username[LENGTH]) {
   char fname[LENGTH];
   char lname[LENGTH];
   fprintf("%s ",username);
@@ -95,27 +100,27 @@ void createProfile(FILE * fp,char username[LENGTH]) {
   printf("Please input last name\n");
   scanf("%s\n",lname);
   fprintf(fp,"%s %s\n",fname,lname);
-}
+}*/
 
 
 // STANDARD BOARD MATERIALS
-void playStandard(struct player a, struct player a) {//DEPENDS ON PRINTOUT LOCATIONS!!!
+void playStandard() {//DEPENDS ON PRINTOUT LOCATIONS!!!
   int game = 1;
   int initialx;
   int initialy;
   int finalx;
   int finaly;
   char standardboard[8][8];
-  boardStandard(standardboard[8][8]);
+  boardStandard(standardboard);
   while(game==1) {
-    displayBoard(standardboard[8][8]);
+    displayBoard(standardboard);
     printf("Enter the location of your piece.\n");
     scanf("%d",&initialx); //Depends on how location is prented
-    scanf("%d"&initialy); //^^
+    scanf("%d",&initialy); //^^
     printf("Enter the final location\n");
     scanf("%d",&finalx);
     scanf("%d",&finaly);
-    move(standardboard[8][8], initialx, initialy, finalx, finaly);
+    move(standardboard, initialx, initialy, finalx, finaly);
   }
 }
 //Populates board
@@ -156,55 +161,74 @@ void boardStandard(char board[8][8]) {
 void displayBoard(char board[8][8]) {
   //printout
   for(int i=0;i<8;i++) {
-    printf("[%d]\t",abs(i-8));
+    printf("[%d]\t",abs(i));
     for(int j=0;j<8;j++) {
       printf("%c\t",board[i][j]);
     }
     printf("\n\n");
   }
-  printf("\t[A]\t[B]\t[C]\t[D]\t[E]\t[F]\t[G]\t[H]\n");
+  printf("\t0\t1\t2\t3\t4\t5\t6\t7\n");
 }
 
 //Pre-conditions:
 //Post-conditions: Deletes the piece from initial position and places it in final
 void move(char board[8][8], int initx, int inity, int x, int y) {
   char piece = board[initx][inity];
+  printf("%c!!!!!!\n",piece); //TEST REMOVE
   int flag=0;
   int flag1=0;
   switch(piece) {
-    case('n'||'N'): {
-      flag = knight(board[8][8],initx,inity,x,y);
+    case('n'):
+    case('N'):
+    {
+      flag = knight(board,initx,inity,x,y);
+      break;
     }
-    case('q'||'Q') {
-      flag = queen(board[8][8],initx,inity,x,y);
+    case('q'):
+    case('Q'):
+    {
+      flag = queen(board,initx,inity,x,y);
+      break;
     }
-    case('k'||'K') {
-      flag = king(board[8][8],initx,inity,x,y);
+    case('k'):
+    case('K'):
+    {
+      flag = king(board,initx,inity,x,y);
+      break;
     }
-    case('r'||'R') {
-      flag = rook(board[8][8],initx,inity,x,y);
+    case('r'):
+    case('R'):
+    {
+      flag = rook(board,initx,inity,x,y);
+      break;
     }
-    case('b'||'B') {
-      flag = bishop(board[8][8],initx,inity,x,y);
+    case('b'):
+    case('B'):
+    {
+      flag = bishop(board,initx,inity,x,y);
     }
-    case('p'||'P') {
-      flag = pawn(board[8][8],initx,inity,x,y);
+    case('p'):
+    case('P'):
+    {
+      flag = pawn(board,initx,inity,x,y);
       if((x==7)||(x==0))
         piece = promote();
+      break;
     }
-    if(flag) {
-      board[initx][inity]='-';
-      board[x][y]=piece;
-    }
-    else
-      printf("Move is invalid, please try again.\n");
   }
+  if(flag) {
+    board[initx][inity]='-';
+    board[x][y]=piece;
+  }
+
+      else
+        printf("Move is invalid, please try again.\n");
 
 }
 
 char promote() {//may be an issue, case sensitive?
   char piece;
-  printf("What piece would you like to promote to?\n")
+  printf("What piece would you like to promote to?\n");
   scanf("%c",&piece);
   return piece;
 }
