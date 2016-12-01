@@ -54,7 +54,7 @@ int main() {
   FILE * ifp;
   printf("Are you importing an existing playerbase? Answer Y/N\n");
   scanf("%c",&fileexists);
-  if(fileexists) {
+  if(fileexists=='Y') {
     printf("What is the file path?\n");
     scanf("%s",path);
     ifp = fopen(path,"a");
@@ -167,7 +167,7 @@ void displayBoard(char board[8][8]) {
     }
     printf("\n\n");
   }
-  printf("\t0\t1\t2\t3\t4\t5\t6\t7\n");
+  printf("\t[0]\t[1]\t[2]\t[3]\t[4]\t[5]\t[6]\t[7]\n");
 }
 
 //Pre-conditions:
