@@ -278,10 +278,11 @@ int king(char board[8][8], int initx, int inity, int x, int y) {
 int pawn(char board[8][8], int initx, int inity, int x, int y) {
   int flag=0;
   if(board[initx][inity] == 'P') {
-    int possibleP[3][2] = {
-      {initx-1,inity-1},
+    int possibleP[4][2] = {
       {initx-1,inity},
-      {initx-1,inity+1}
+      {initx-2,inity},
+      {initx-1,inity+1},
+      {initx-1,inity-1},
     };
       //Search loop is functional
     for(int i=0;i<3;i++) {
@@ -290,10 +291,11 @@ int pawn(char board[8][8], int initx, int inity, int x, int y) {
     }
   }
   else {
-    int possibleP[3][2] = {
-      {initx+1,inity-1},
+    int possibleP[4][2] = {
       {initx+1,inity},
-      {initx+1,inity+1}
+      {initx+2,inity},
+      {initx+1,inity+1},
+      {initx+1,inity-1},
     };
       //Search loop is functional
     for(int i=0;i<3;i++) {
