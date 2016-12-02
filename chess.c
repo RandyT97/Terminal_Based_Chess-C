@@ -74,7 +74,14 @@ int main() {
 }
 /*void scanProfiles(FILE * ifp) { //find a way to scan a file
   struct player entries[20];
-}*/
+  int c=0;
+  while(fscanf(globalifp,"%s",fname)!=EOF) {
+    fscanf(globalifp,"%s",entries[c].lname);
+    fscanf(globalifp,"%d",entries[c].win);
+    fscanf(globalifp,"%d",entries[c].loss);
+    c++;
+  }
+}
 void playerMenu(FILE * ifp) {
   int input=0;
   int playercounter=0;
