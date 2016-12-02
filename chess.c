@@ -129,7 +129,9 @@ void createProfile(struct player base[20]) {
 
 } //works as intended
 void fileprintProfiles(struct player base[20]) { //code can be recycled to update file
+  globalifp = fopen(globalfilename,"w+");
   for(int i=0;i<20;i++){
+
     fprintf(globalifp,"\n%s\t",base[i].fname);
     fprintf(globalifp,"%s\t",base[i].lname);
     fprintf(globalifp,"%d\t",base[i].win);
@@ -137,7 +139,7 @@ void fileprintProfiles(struct player base[20]) { //code can be recycled to updat
   }
 }
 void scanProfiles(struct player entries[20]) { //find a way to scan a file
-  globalifp = fopen(globalfilename,"w+");
+
   while(fscanf(globalifp,"%s",entries[profilecounter].fname)!=EOF) {
     fscanf(globalifp,"%s",entries[profilecounter].lname);
     fscanf(globalifp,"%d",&entries[profilecounter].win);
