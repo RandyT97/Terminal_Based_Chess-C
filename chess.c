@@ -94,7 +94,7 @@ void playerMenu() {
       case(1):
         printf("First name of the player in control of upper case pieces?\n");
         scanf("%s",capfname);
-        printf("First name of the player in control of upper case pieces?\n");
+        printf("First name of the player in control of lower case pieces?\n");
         scanf("%s",lowfname);
         playStandard(database[findProfile(database,capfname)], database[findProfile(database,lowfname)]);
         break;
