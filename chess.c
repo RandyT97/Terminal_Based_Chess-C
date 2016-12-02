@@ -6,19 +6,28 @@ Chess.c
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
+
+
 #define LENGTH 20
+#define structLength 50
+
+
 FILE * globalifp;
 int profilecounter=0;
 char globalfilename[70];
+
+
 struct player{
   char fname[LENGTH];
   char lname[LENGTH];
   int win;
   int loss;
 };
-// REMEMBER TO CHECK FOR WHETHER FINAL POS IS IN THE BOARD[8][8] ARRAY
+
 void boardStandard(char board[8][8]);
 void displayBoard(char board[8][8]);
+void playStandard(struct player upperCase, struct player lowerCase);
+
 int knight(char board[8][8], int initx, int inity, int x, int y);
 int queen(char board[8][8], int initx, int inity, int x, int y);
 int king(char board[8][8], int initx, int inity, int x, int y);
@@ -27,17 +36,20 @@ int bishop(char board[8][8], int initx, int inity, int x, int y);
 int pawn(char board[8][8], int initx, int inity, int x, int y);
 void move(char board[8][8], int initx, int inity, int x, int y);
 char promote();
+
 void playerMenu();
-void updateProfiles(struct player base[20]);
-void playStandard(struct player upperCase, struct player lowerCase);
-//void printProfiles(FILE * ifp);
-void scanProfiles(struct player entries[20]);
-void createProfile(struct player base[20]);
-void fileprintProfiles(struct player base[20]);
-void printProfile(struct player base[20]);
+
+void recordLookup(struct player base[structLength]);
+int findProfile(struct player base[structLength],char fname[LENGTH]);
+void updateProfiles(struct player base[structLength]);
+void scanProfiles(struct player entries[structLength]);
+void createProfile(struct player base[structLength]);
+void fileprintProfiles(struct player base[structLength]);
+void printProfile(struct player base[structLength]);
+
 int isEnd(char board[8][8]);
-int findProfile(struct player base[20],char fname[20]);
-void initializeEmpty(struct player newbase[20]);
+
+void initializeEmpty(struct player newbase[structLength]);
 int main() {
   int input=5;
   char fileexists;
@@ -60,20 +72,22 @@ int main() {
   playerMenu(globalifp);
 
 }
+//player menu
 void playerMenu() {
   int input=0;
   int playercounter=0;
-  char capfname[20];
-  char lowfname[20];
-  struct player database[20];
+  char capfname[LENGTH];
+  char lowfname[LENGTH];
+  struct player database[structLength];
   initializeEmpty(database);
   scanProfiles(database);
-  while(input!=4){
+  while(input!=5){
     fileprintProfiles(database);
     printf("1. Start a standard game\n");
     printf("2. Create Player Profile\n");
     printf("3. Print Player Statistics\n");
-    printf("4. Exit\n");
+    printf("4. Record Lookup\n");
+    printf("5. Quit Game\n");
     scanf("%d",&input);
     switch(input) {
       case(1):
@@ -83,25 +97,29 @@ void playerMenu() {
         scanf("%s",lowfname);
         playStandard(database[findProfile(database,capfname)], database[findProfile(database,lowfname)]);
         break;
-      case(2): {
+      case(2):
         createProfile(database);
         break;
-        }
       case(3):
         printProfile(database);
+        break;
+      case(4):
+        recordLookup(database);
         break;
       }
     }
 }
-void initializeEmpty(struct player newbase[20]) {
-  for(int i=0;i<20;i++) {
+//Default initializes player array
+void initializeEmpty(struct player newbase[structLength]) {
+  for(int i=0;i<structLength;i++) {
     strcpy(newbase[i].fname," ");
     strcpy(newbase[i].lname," ");
     newbase[i].win=0;
     newbase[i].loss=0;
   }
 }
-void createProfile(struct player base[20]) {
+//Create a profile, prompts for first and last name
+void createProfile(struct player base[structLength]) {
   printf("What is your first name?\n");
   scanf("%s",base[profilecounter].fname);
   printf("What is your last name?\n");
@@ -109,11 +127,11 @@ void createProfile(struct player base[20]) {
   base[profilecounter].win=0;
   base[profilecounter].loss=0;
   profilecounter++;
-
-} //works as intended
-void fileprintProfiles(struct player base[20]) { //code can be recycled to update file
+}
+//Prints the current player array to the file pointed by the global file var globalifp
+void fileprintProfiles(struct player base[structLength]) { //code can be recycled to update file
   globalifp = fopen(globalfilename,"w+");
-  for(int i=0;i<20;i++){
+  for(int i=0;i<structLength;i++){
 
     fprintf(globalifp,"\n%s\t",base[i].fname);
     fprintf(globalifp,"%s\t",base[i].lname);
@@ -121,7 +139,8 @@ void fileprintProfiles(struct player base[20]) { //code can be recycled to updat
     fprintf(globalifp,"%d\t \n",base[i].loss);
   }
 }
-void scanProfiles(struct player entries[20]) { //find a way to scan a file
+//Scans file into player structure
+void scanProfiles(struct player entries[structLength]) { //find a way to scan a file
   while(fscanf(globalifp,"%s",entries[profilecounter].fname)!=EOF) {
     fscanf(globalifp,"%s",entries[profilecounter].lname);
     fscanf(globalifp,"%d",&entries[profilecounter].win);
@@ -129,18 +148,34 @@ void scanProfiles(struct player entries[20]) { //find a way to scan a file
     profilecounter++;
   }
 }
-void printProfile(struct player base[20]) {
-  for(int i=0;i<20;i++) {
+//prints all profiles to terminal
+void printProfile(struct player base[structLength]) {
+  for(int i=0;i<structLength;i++) {
     printf("Firstname:%s\tLastname:%s\tWins:%d\tLosses:%d\t\n",base[i].fname,base[i].lname,base[i].win,base[i].loss);
   }
 }
-int findProfile(struct player base[20],char fname[20]) {
+//given first name finds index
+int findProfile(struct player base[structLength],char fname[LENGTH]) {
   int index;
-  for(int i=0;i<20;i++) {
+  for(int i=0;i<structLength;i++) {
     if(strcmp(base[i].fname,fname)==0)
       index = i;
   }
   return index;
+}
+void recordLookup(struct player base[structLength]) {
+  char name[LENGTH];
+  int flag=0;
+  printf("What is the first name of the player you are looking for?\n");
+  scanf("%s",name);
+  for(int i=0;i<structLength;i++) {
+    if(strcmp(base[i].fname,name)==0) {
+      printf("Wins: %d\tLosses: %d\n",base[i].win,base[i].loss);
+      flag=1;
+    }
+  }
+  if(!flag)
+    printf("Player does not exist or name is spelt wrong **CASE SENSITIVE**");
 }
 int isEnd(char board[8][8]) {
   int lowerKingAlive=0;
@@ -163,7 +198,8 @@ int isEnd(char board[8][8]) {
   }
   return 0;
 }
-// STANDARD BOARD MATERIALS
+//Pre-Conditions: Two player structs
+//Post-Conditions: Adds a win to the winner and a loss to the loser
 void playStandard(struct player upperCase, struct player lowerCase) {//DEPENDS ON PRINTOUT LOCATIONS!!!
   int game = 1;
   int initialx;
@@ -184,10 +220,12 @@ void playStandard(struct player upperCase, struct player lowerCase) {//DEPENDS O
     if(isEnd(standardboard)!=0) {
       if(isEnd(standardboard)==1) {
         upperCase.win+=1;
+        lowerCase.loss+=1;
         game=0;
       }
       else{
         lowerCase.win+=1;
+        upperCase.loss+=1;
         game=0;
       }
     }
@@ -239,7 +277,6 @@ void displayBoard(char board[8][8]) {
   }
   printf("\t[0]\t[1]\t[2]\t[3]\t[4]\t[5]\t[6]\t[7]\n");
 }
-
 //Pre-conditions:
 //Post-conditions: Deletes the piece from initial position and places it in final
 void move(char board[8][8], int initx, int inity, int x, int y) {
@@ -294,6 +331,7 @@ void move(char board[8][8], int initx, int inity, int x, int y) {
         printf("Move is invalid, please try again.\n");
 
 }
+//returns char representation of intended piece from user
 char promote() {//may be an issue, case sensitive?
   char piece;
   printf("What piece would you like to promote to?\n");
