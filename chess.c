@@ -79,17 +79,22 @@ void playerMenu() {
   char capfname[LENGTH];
   char lowfname[LENGTH];
   struct player database[structLength];
+
   initializeEmpty(database);
   scanProfiles(database);
+
   while(input!=5){
     fileprintProfiles(database);
+
     printf("1. Start a standard game\n");
     printf("2. Create Player Profile\n");
     printf("3. Print Player Statistics\n");
     printf("4. Record Lookup\n");
     printf("5. Quit Game\n");
     scanf("%d",&input);
+
     switch(input) {
+
       case(1):
         printf("First name of the player in control of upper case pieces?\n");
         scanf("%s",capfname);
@@ -97,12 +102,15 @@ void playerMenu() {
         scanf("%s",lowfname);
         playStandard(database[findProfile(database,capfname)], database[findProfile(database,lowfname)]);
         break;
+
       case(2):
         createProfile(database);
         break;
+
       case(3):
         printProfile(database);
         break;
+
       case(4):
         recordLookup(database);
         break;
@@ -120,10 +128,12 @@ void initializeEmpty(struct player newbase[structLength]) {
 }
 //Create a profile, prompts for first and last name
 void createProfile(struct player base[structLength]) {
+
   printf("What is your first name?\n");
   scanf("%s",base[profilecounter].fname);
   printf("What is your last name?\n");
   scanf("%s",base[profilecounter].lname);
+
   base[profilecounter].win=0;
   base[profilecounter].loss=0;
   profilecounter++;
@@ -131,8 +141,8 @@ void createProfile(struct player base[structLength]) {
 //Prints the current player array to the file pointed by the global file var globalifp
 void fileprintProfiles(struct player base[structLength]) { //code can be recycled to update file
   globalifp = fopen(globalfilename,"w+");
-  for(int i=0;i<structLength;i++){
 
+  for(int i=0;i<structLength;i++){
     fprintf(globalifp,"\n%s\t",base[i].fname);
     fprintf(globalifp,"%s\t",base[i].lname);
     fprintf(globalifp,"%d\t",base[i].win);
@@ -157,6 +167,7 @@ void printProfile(struct player base[structLength]) {
 //given first name finds index
 int findProfile(struct player base[structLength],char fname[LENGTH]) {
   int index;
+
   for(int i=0;i<structLength;i++) {
     if(strcmp(base[i].fname,fname)==0)
       index = i;
@@ -166,8 +177,10 @@ int findProfile(struct player base[structLength],char fname[LENGTH]) {
 void recordLookup(struct player base[structLength]) {
   char name[LENGTH];
   int flag=0;
+
   printf("What is the first name of the player you are looking for?\n");
   scanf("%s",name);
+
   for(int i=0;i<structLength;i++) {
     if(strcmp(base[i].fname,name)==0) {
       printf("Wins: %d\tLosses: %d\n",base[i].win,base[i].loss);
@@ -180,12 +193,16 @@ void recordLookup(struct player base[structLength]) {
 int isEnd(char board[8][8]) {
   int lowerKingAlive=0;
   int upperKingAlive=0;
+
   for(int i=0;i<8;i++) {
     for(int j=8;j<8;j++) {
+
       if(board[i][j]=='K')
         lowerKingAlive=1;
+
       if(board[i][j]=='k')
         upperKingAlive=1;
+
     }
   }
   if(!lowerKingAlive) {
@@ -207,7 +224,9 @@ void playStandard(struct player upperCase, struct player lowerCase) {//DEPENDS O
   int finalx;
   int finaly;
   char standardboard[8][8];
+
   boardStandard(standardboard);
+
   while(game==1) {
     displayBoard(standardboard);
     printf("Enter the location of your piece.\n");
@@ -217,6 +236,7 @@ void playStandard(struct player upperCase, struct player lowerCase) {//DEPENDS O
     scanf("%d",&finalx);
     scanf("%d",&finaly);
     move(standardboard, initialx, initialy, finalx, finaly);
+
     if(isEnd(standardboard)!=0) {
       if(isEnd(standardboard)==1) {
         upperCase.win+=1;
@@ -281,9 +301,9 @@ void displayBoard(char board[8][8]) {
 //Post-conditions: Deletes the piece from initial position and places it in final
 void move(char board[8][8], int initx, int inity, int x, int y) {
   char piece = board[initx][inity];
-  printf("%c!!!!!!\n",piece); //TEST REMOVE
   int flag=0;
   int flag1=0;
+
   switch(piece) {
     case('n'):
     case('N'):
@@ -428,8 +448,10 @@ int queen(char board[8][8], int initx, int inity, int x, int y) {
   int flag=0;
   if((initx == x)||(inity == y)) //diagonals recycled from bishop
     flag=1;
+
   if((initx == x)||(inity == y)) //row recycled from rooks
     if(!((initx == x)&&(inity == y)))
         flag=1;
+
   return flag;
 }
