@@ -41,14 +41,14 @@ int isCheck(char board[8][8]);
 int isCheckMate(char board[8][8]);
 void notate(int x, int y);
 void playerMenu(FILE * ifp);
-void updateProfiles(FILE * ifp,struct player base[100]);
+void updateProfiles(FILE * ifp,struct player base[20]);
 void playStandard();
 //void printProfiles(FILE * ifp);
 //void scanProfiles(FILE * ifp);
-void createProfile(struct player base[100]);
-void loadProfiles(FILE * ifp,struct player base[100]);
-void updateProfiles(FILE * ifp,struct player base[100]);
-void printProfile(struct player base[100]);
+void createProfile(struct player base[20],int playercounter);
+void loadProfiles(FILE * ifp,struct player base[20]);
+void updateProfiles(FILE * ifp,struct player base[20]);
+void printProfile(struct player base[20]);
 int main() {
   int input=5;
   char fileexists;
@@ -62,7 +62,7 @@ int main() {
     ifp = fopen(path,"a");
   }
   else {
-    ifp = fopen("chessplayers.txt","w"); //new file created
+    ifp = fopen("chessplayers.txt","w+"); //new file created
 
   }
   printf("Welcome to \"C\"hess!\n \n");
@@ -71,17 +71,21 @@ int main() {
 
 }
 /*void scanProfiles(FILE * ifp) { //find a way to scan a file
-  struct player entries[100];
+  struct player entries[20];
 }*/
 void playerMenu(FILE * ifp) {
   int input=0;
   int playercounter=0;
   char username[LENGTH];
   char username2[LENGTH];
-  struct player database[100];
+  struct player database[20];
   loadProfiles(ifp,database);
-  for(int i=0;i<100;i++)
-    strcpy(database[i].fname,"DNE");
+  for(int i=0;i<20;i++) {
+    strcpy(database[i].fname,"_");
+    strcpy(database[i].lname,"_");
+    database[i].win = 0;
+    database[i].loss = 0;
+  }
 
 
   while(input!=4){
@@ -95,51 +99,51 @@ void playerMenu(FILE * ifp) {
         playStandard();
         break;
       case(2): {
-        createProfile(database);
+        //createProfile(database,playercounter);
+        //playercounter++;
         loadProfiles(ifp,database);
         updateProfiles(ifp,database);
         break;
         }
+      case(3):
+        printProfile(database);
       }
     }
 }
-void loadProfiles(FILE * ifp,struct player base[100]) {
-  for(int i=0;i<100;i++) {
+void loadProfiles(FILE * ifp,struct player base[20]) {
+  for(int i=0;i<20;i++) {
     fscanf(ifp,"%s",base[i].fname);
     fscanf(ifp,"%s",base[i].lname);
     fscanf(ifp,"%d",base[i].win);
     fscanf(ifp,"%d",base[i].loss);
   }
 }
-void updateProfiles(FILE * ifp,struct player base[100]) {
-  for(int i=0;i<100;i++) {
-    fprintf(ifp,"\n%s\t",base[i].fname);
-    printf("%s",base[i].fname);
-    fprintf(ifp,"%s\t",base[i].lname);
-    fprintf(ifp,"%d\t",base[i].win);
-    fprintf(ifp,"%d\t \n",base[i].loss);
-  }
+void updateProfiles(FILE * ifp,struct player base[20]) {
+    char fname[20];
+    char lname[20];
+    int win=0;
+    int loss=0;
+    printf("Please type your first and last name.\n");
+    scanf("%s",fname);
+    scanf("%s",lname);
+    fprintf(ifp,"\n%s\t",fname);
+    fprintf(ifp,"%s\t",lname);
+    fprintf(ifp,"%d\t",win);
+    fprintf(ifp,"%d\t \n",loss);
 }
-void createProfile(struct player base[100]) {
+/*void createProfile(struct player base[20],int playercounter) {
   char fname[LENGTH];
   char lname[LENGTH];
-  int num=0;
-  for(int i=0;i<100;i++) {
-    if(strcmp(base[num].fname,"DNE")){
-      num=i;
-      break;
-  }
-}
-  int freeindex=num;
-  printf("~~~~~~%d",freeindex);
+
+  printf("~~~~~~%d",playercounter);
   printf("Please input first name\n");
-  scanf("%s",base[freeindex].fname);
+  scanf("%s",base[playercounter].fname);
 
   printf("Please input last name\n");
-  scanf("%s",base[freeindex].lname);
-}
-void printProfile(struct player base[100]) {
-  for(int i=0;i<100;i++) {
+  scanf("%s",base[playercounter].lname);
+}*/
+void printProfile(struct player base[20]) {
+  for(int i=0;i<20;i++) {
     printf("Firstname:%s\tLastname:%s\tWins:%d\tLosses:%d\t\n",base[i].fname,base[i].lname,base[i].win,base[i].loss);
   }
 }
