@@ -9,7 +9,7 @@ Chess.c
 #define LENGTH 20
 FILE * globalifp;
 int profilecounter=0;
-char globalfilename[20];
+char globalfilename[70];
 struct player{
   char fname[LENGTH];
   char lname[LENGTH];
@@ -75,20 +75,6 @@ int main() {
   playerMenu(globalifp);
 
 }
-/*void scanProfiles(FILE * ifp) { //find a way to scan a file
-  struct player entries[20];
-<<<<<<< HEAD
-  int c=0;
-  while(fscanf(globalifp,"%s",fname)!=EOF) {
-    fscanf(globalifp,"%s",entries[c].lname);
-    fscanf(globalifp,"%d",entries[c].win);
-    fscanf(globalifp,"%d",entries[c].loss);
-    c++;
-  }
-}
-void playerMenu(FILE * ifp) {
-=======
-}*/
 void playerMenu() {
   int input=0;
   int playercounter=0;
@@ -96,12 +82,6 @@ void playerMenu() {
   char lowfname[20];
   struct player database[20];
   initializeEmpty(database);
-  /*for(int i=0;i<20;i++) {
-    strcpy(database[i].fname,"_");
-    strcpy(database[i].lname,"_");
-    database[i].win = 0;
-    database[i].loss = 0;
-  }*/
   scanProfiles(database);
 
 
