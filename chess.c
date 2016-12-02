@@ -16,19 +16,7 @@ struct player{
   int win;
   int loss;
 };
-// REMEMBER TO CHECK FOR WHETHER IT IS IN THE BOARD ARRAY
-/*
-int playHorde(player A, player B);
-void boardHorde(char board[8][8]);
-int playChess960(char board[8][8]);
-void board960(char board[8][8]);
-
 // REMEMBER TO CHECK FOR WHETHER FINAL POS IS IN THE BOARD[8][8] ARRAY
-int isValid(char board[8][8], int initx, int inity, int x, int y);
-void kingSafe(char board[8][8],int x, int y);
-void castle(char board[8][8], int initx, int inity, int x, int y);
-*/
-void getInfo();
 void boardStandard(char board[8][8]);
 void displayBoard(char board[8][8]);
 int knight(char board[8][8], int initx, int inity, int x, int y);
@@ -39,9 +27,6 @@ int bishop(char board[8][8], int initx, int inity, int x, int y);
 int pawn(char board[8][8], int initx, int inity, int x, int y);
 void move(char board[8][8], int initx, int inity, int x, int y);
 char promote();
-int isCheck(char board[8][8]);
-int isCheckMate(char board[8][8]);
-void notate(int x, int y);
 void playerMenu();
 void updateProfiles(struct player base[20]);
 void playStandard(struct player upperCase, struct player lowerCase);
@@ -309,7 +294,6 @@ void move(char board[8][8], int initx, int inity, int x, int y) {
         printf("Move is invalid, please try again.\n");
 
 }
-
 char promote() {//may be an issue, case sensitive?
   char piece;
   printf("What piece would you like to promote to?\n");
