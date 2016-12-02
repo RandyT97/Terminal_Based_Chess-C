@@ -5,6 +5,7 @@ Chess.c
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <string.h>
 #define LENGTH 20
 
 struct player{
@@ -40,13 +41,14 @@ int isCheck(char board[8][8]);
 int isCheckMate(char board[8][8]);
 void notate(int x, int y);
 void playerMenu(FILE * ifp);
-
+void updateProfiles(FILE * ifp,struct player base[100]);
 void playStandard();
 //void printProfiles(FILE * ifp);
 //void scanProfiles(FILE * ifp);
-//void createProfile(FILE * fp,char username[LENGTH]);
-
-//t
+void createProfile(struct player base[100]);
+void loadProfiles(FILE * ifp,struct player base[100]);
+void updateProfiles(FILE * ifp,struct player base[100]);
+void printProfile(struct player base[100]);
 int main() {
   int input=5;
   char fileexists;
@@ -58,10 +60,10 @@ int main() {
     printf("What is the file path?\n");
     scanf("%s",path);
     ifp = fopen(path,"a");
-    fprintf(ifp,"\n");
   }
   else {
     ifp = fopen("chessplayers.txt","w"); //new file created
+
   }
   printf("Welcome to \"C\"hess!\n \n");
   printf("What would you like to do?\n");
@@ -73,35 +75,74 @@ int main() {
 }*/
 void playerMenu(FILE * ifp) {
   int input=0;
+  int playercounter=0;
   char username[LENGTH];
   char username2[LENGTH];
-  printf("1. Start a standard game\n");
-  printf("2. Create Player Profile\n");
-  printf("3. Print Player Statistics\n");
-  printf("4. Exit\n");
-  scanf("%d",&input);
-  while(input!=4)
+  struct player database[100];
+  loadProfiles(ifp,database);
+  for(int i=0;i<100;i++)
+    strcpy(database[i].fname,"DNE");
+
+
+  while(input!=4){
+    printf("1. Start a standard game\n");
+    printf("2. Create Player Profile\n");
+    printf("3. Print Player Statistics\n");
+    printf("4. Exit\n");
+    scanf("%d",&input);
     switch(input) {
       case(1):
         playStandard();
+        break;
       case(2): {
-        printf("What is your desired username?");
-        scanf("%s",username);
-        //createProfile(username);
+        createProfile(database);
+        loadProfiles(ifp,database);
+        updateProfiles(ifp,database);
+        break;
         }
+      }
+    }
+}
+void loadProfiles(FILE * ifp,struct player base[100]) {
+  for(int i=0;i<100;i++) {
+    fscanf(ifp,"%s",base[i].fname);
+    fscanf(ifp,"%s",base[i].lname);
+    fscanf(ifp,"%d",base[i].win);
+    fscanf(ifp,"%d",base[i].loss);
   }
 }
-/*void createProfile(FILE * fp,char username[LENGTH]) {
+void updateProfiles(FILE * ifp,struct player base[100]) {
+  for(int i=0;i<100;i++) {
+    fprintf(ifp,"\n%s\t",base[i].fname);
+    printf("%s",base[i].fname);
+    fprintf(ifp,"%s\t",base[i].lname);
+    fprintf(ifp,"%d\t",base[i].win);
+    fprintf(ifp,"%d\t \n",base[i].loss);
+  }
+}
+void createProfile(struct player base[100]) {
   char fname[LENGTH];
   char lname[LENGTH];
-  fprintf("%s ",username);
+  int num=0;
+  for(int i=0;i<100;i++) {
+    if(strcmp(base[num].fname,"DNE")){
+      num=i;
+      break;
+  }
+}
+  int freeindex=num;
+  printf("~~~~~~%d",freeindex);
   printf("Please input first name\n");
-  scanf("%s ",fname);
-  printf("Please input last name\n");
-  scanf("%s\n",lname);
-  fprintf(fp,"%s %s\n",fname,lname);
-}*/
+  scanf("%s",base[freeindex].fname);
 
+  printf("Please input last name\n");
+  scanf("%s",base[freeindex].lname);
+}
+void printProfile(struct player base[100]) {
+  for(int i=0;i<100;i++) {
+    printf("Firstname:%s\tLastname:%s\tWins:%d\tLosses:%d\t\n",base[i].fname,base[i].lname,base[i].win,base[i].loss);
+  }
+}
 
 // STANDARD BOARD MATERIALS
 void playStandard() {//DEPENDS ON PRINTOUT LOCATIONS!!!
@@ -220,7 +261,6 @@ void move(char board[8][8], int initx, int inity, int x, int y) {
     board[initx][inity]='-';
     board[x][y]=piece;
   }
-
       else
         printf("Move is invalid, please try again.\n");
 
