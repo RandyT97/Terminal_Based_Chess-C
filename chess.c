@@ -83,8 +83,6 @@ void playerMenu() {
   struct player database[20];
   initializeEmpty(database);
   scanProfiles(database);
-
-
   while(input!=4){
     fileprintProfiles(database);
     printf("1. Start a standard game\n");
@@ -139,7 +137,6 @@ void fileprintProfiles(struct player base[20]) { //code can be recycled to updat
   }
 }
 void scanProfiles(struct player entries[20]) { //find a way to scan a file
-
   while(fscanf(globalifp,"%s",entries[profilecounter].fname)!=EOF) {
     fscanf(globalifp,"%s",entries[profilecounter].lname);
     fscanf(globalifp,"%d",&entries[profilecounter].win);
