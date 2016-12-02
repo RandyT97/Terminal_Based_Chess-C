@@ -61,7 +61,7 @@ int main() {
   if(fileexists=='Y') {
     printf("What is the file path?\n");
     scanf("%s",path);
-    ifp = fopen(path,"a");
+    ifp = fopen(path,"r");
   }
   else {
     ifp = fopen("chessplayers.txt","w+"); //new file created
