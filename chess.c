@@ -27,7 +27,6 @@ struct player{
 void boardStandard(char board[8][8]);
 void displayBoard(char board[8][8]);
 void playStandard(struct player upperCase, struct player lowerCase);
-
 int knight(char board[8][8], int initx, int inity, int x, int y);
 int queen(char board[8][8], int initx, int inity, int x, int y);
 int king(char board[8][8], int initx, int inity, int x, int y);
@@ -46,7 +45,6 @@ void scanProfiles(struct player entries[STRUCTLENGTH]);
 void createProfile(struct player base[STRUCTLENGTH]);
 void fileprintProfiles(struct player base[STRUCTLENGTH]);
 void printProfile(struct player base[STRUCTLENGTH]);
-
 int isEnd(char board[8][8]);
 
 void initializeEmpty(struct player newbase[STRUCTLENGTH]);
@@ -117,6 +115,8 @@ void playerMenu() {
       case(4):
         recordLookup(database);
         break;
+      case(5):
+        fclose(globalifp);
       }
     }
 }
@@ -141,6 +141,7 @@ void createProfile(struct player base[STRUCTLENGTH]) {
   base[profilecounter].loss=0;
   profilecounter++;
 }
+//This function is created since 0s tend to pop up in my file upon openning
 void clearzeroes(struct player base[STRUCTLENGTH]) {
   for(int i=0;i<STRUCTLENGTH;i++){
     if(strcmp(base[i].fname,"0")==0) {
@@ -192,7 +193,7 @@ void recordLookup(struct player base[STRUCTLENGTH]) {
   char name[LENGTH];
   int flag=0;
 
-  printf("What is the first name of the player you are looking for?\n");
+  printf("What is the first name of the player you are looking for? (case sensitive)\n");
   scanf("%s",name);
 
   for(int i=0;i<STRUCTLENGTH;i++) {
@@ -202,14 +203,14 @@ void recordLookup(struct player base[STRUCTLENGTH]) {
     }
   }
   if(!flag)
-    printf("Player does not exist or name is spelt wrong **CASE SENSITIVE**");
+    printf("Player does not exist or name is spelt wrong\n");
 }
 int isEnd(char board[8][8]) {
   int lowerKingAlive=0;
   int upperKingAlive=0;
 
   for(int i=0;i<8;i++) {
-    for(int j=8;j<8;j++) {
+    for(int j=0;j<8;j++) {
 
       if(board[i][j]=='K')
         lowerKingAlive=1;
@@ -219,11 +220,11 @@ int isEnd(char board[8][8]) {
 
     }
   }
-  if(!lowerKingAlive) {
+  if(lowerKingAlive==0) {
     printf("Game is over, upper case won!\n");
     return 1;
   }
-  if(!upperKingAlive) {
+  if(upperKingAlive==0) {
     printf("Game is over, lower case won!\n");
     return 2;
   }
@@ -238,7 +239,7 @@ void playStandard(struct player upperCase, struct player lowerCase) {//DEPENDS O
   int finalx;
   int finaly;
   char standardboard[8][8];
-
+  printf("Beginning chess game!\n");
   boardStandard(standardboard);
 
   while(game==1) {
@@ -250,6 +251,11 @@ void playStandard(struct player upperCase, struct player lowerCase) {//DEPENDS O
     scanf("%d",&finalx);
     scanf("%d",&finaly);
     move(standardboard, initialx, initialy, finalx, finaly);
+    if( ( (initialx<0)||(initialx>7) ) ||( (finalx<0)||(finaly>7) ) ) {
+      printf("Move is not within bounds\n");
+      printf("If you would like to quit, enter 0. If you would like to continue, enter 1.\n");
+      scanf("%d",&game);
+    }
 
     if(isEnd(standardboard)!=0) {
       if(isEnd(standardboard)==1) {
@@ -361,9 +367,9 @@ void move(char board[8][8], int initx, int inity, int x, int y) {
     board[initx][inity]='-';
     board[x][y]=piece;
   }
-      else
+      else {
         printf("Move is invalid, please try again.\n");
-
+      }
 }
 //returns char representation of intended piece from user
 char promote() {//may be an issue, case sensitive?
