@@ -9,7 +9,7 @@ Chess.c
 
 
 #define LENGTH 20
-#define structLength 50
+#define STRUCTLENGTH 50
 
 
 FILE * globalifp;
@@ -39,17 +39,18 @@ char promote();
 
 void playerMenu();
 
-void recordLookup(struct player base[structLength]);
-int findProfile(struct player base[structLength],char fname[LENGTH]);
-void updateProfiles(struct player base[structLength]);
-void scanProfiles(struct player entries[structLength]);
-void createProfile(struct player base[structLength]);
-void fileprintProfiles(struct player base[structLength]);
-void printProfile(struct player base[structLength]);
+void recordLookup(struct player base[STRUCTLENGTH]);
+int findProfile(struct player base[STRUCTLENGTH],char fname[LENGTH]);
+void updateProfiles(struct player base[STRUCTLENGTH]);
+void scanProfiles(struct player entries[STRUCTLENGTH]);
+void createProfile(struct player base[STRUCTLENGTH]);
+void fileprintProfiles(struct player base[STRUCTLENGTH]);
+void printProfile(struct player base[STRUCTLENGTH]);
 
 int isEnd(char board[8][8]);
 
-void initializeEmpty(struct player newbase[structLength]);
+void initializeEmpty(struct player newbase[STRUCTLENGTH]);
+void clearzeroes(struct player base[STRUCTLENGTH]); //GHETTO TEMP FIX
 int main() {
   int input=5;
   char fileexists;
@@ -59,17 +60,18 @@ int main() {
   if(fileexists=='Y') {
     printf("What is the file path?\n");
     scanf("%s",path);
-    globalifp = fopen(path,"r");
+    globalifp = fopen(path,"r+");
   }
   else {
     strcpy(path,"chessplayers.txt");
     globalifp = fopen("chessplayers.txt","w+"); //new file created
-
   }
+
   strcpy(globalfilename,path);
   printf("Welcome to \"C\"hess!\n \n");
   printf("What would you like to do?\n");
   playerMenu(globalifp);
+  fclose(globalifp);
 
 }
 //player menu
@@ -78,12 +80,13 @@ void playerMenu() {
   int playercounter=0;
   char capfname[LENGTH];
   char lowfname[LENGTH];
-  struct player database[structLength];
+  struct player database[STRUCTLENGTH];
 
   initializeEmpty(database);
-  scanProfiles(database);
+  scanProfiles(database); //issues is scan profile
 
   while(input!=5){
+    //clearzeroes(database); GHETTO TEMP FIX
     fileprintProfiles(database);
 
     printf("1. Start a standard game\n");
@@ -118,16 +121,16 @@ void playerMenu() {
     }
 }
 //Default initializes player array
-void initializeEmpty(struct player newbase[structLength]) {
-  for(int i=0;i<structLength;i++) {
-    strcpy(newbase[i].fname," ");
-    strcpy(newbase[i].lname," ");
+void initializeEmpty(struct player newbase[STRUCTLENGTH]) {
+  for(int i=0;i<STRUCTLENGTH;i++) {
+    strcpy(newbase[i].fname,"");
+    strcpy(newbase[i].lname,"");
     newbase[i].win=0;
     newbase[i].loss=0;
   }
 }
 //Create a profile, prompts for first and last name
-void createProfile(struct player base[structLength]) {
+void createProfile(struct player base[STRUCTLENGTH]) {
 
   printf("What is your first name?\n");
   scanf("%s",base[profilecounter].fname);
@@ -138,11 +141,19 @@ void createProfile(struct player base[structLength]) {
   base[profilecounter].loss=0;
   profilecounter++;
 }
+void clearzeroes(struct player base[STRUCTLENGTH]) {
+  for(int i=0;i<STRUCTLENGTH;i++){
+    if(strcmp(base[i].fname,"0")==0) {
+      strcpy(base[i].fname,"");
+      strcpy(base[i].lname,"");
+    }
+  }
+}
 //Prints the current player array to the file pointed by the global file var globalifp
-void fileprintProfiles(struct player base[structLength]) { //code can be recycled to update file
+void fileprintProfiles(struct player base[STRUCTLENGTH]) { //code can be recycled to update file
   globalifp = fopen(globalfilename,"w+");
 
-  for(int i=0;i<structLength;i++){
+  for(int i=0;i<STRUCTLENGTH;i++){
     fprintf(globalifp,"\n%s\t",base[i].fname);
     fprintf(globalifp,"%s\t",base[i].lname);
     fprintf(globalifp,"%d\t",base[i].win);
@@ -150,8 +161,10 @@ void fileprintProfiles(struct player base[structLength]) { //code can be recycle
   }
 }
 //Scans file into player structure
-void scanProfiles(struct player entries[structLength]) { //find a way to scan a file
-  while(fscanf(globalifp,"%s",entries[profilecounter].fname)!=EOF) {
+void scanProfiles(struct player entries[STRUCTLENGTH]) { //find a way to scan a file
+  char first[LENGTH];
+  while(fscanf(globalifp,"%s",first)!=EOF) {
+    strcpy(entries[profilecounter].fname,first);
     fscanf(globalifp,"%s",entries[profilecounter].lname);
     fscanf(globalifp,"%d",&entries[profilecounter].win);
     fscanf(globalifp,"%d",&entries[profilecounter].loss);
@@ -159,29 +172,29 @@ void scanProfiles(struct player entries[structLength]) { //find a way to scan a 
   }
 }
 //prints all profiles to terminal
-void printProfile(struct player base[structLength]) {
-  for(int i=0;i<structLength;i++) {
+void printProfile(struct player base[STRUCTLENGTH]) {
+  for(int i=0;i<STRUCTLENGTH;i++) {
     printf("Firstname:%s\tLastname:%s\tWins:%d\tLosses:%d\t\n",base[i].fname,base[i].lname,base[i].win,base[i].loss);
   }
 }
 //given first name finds index
-int findProfile(struct player base[structLength],char fname[LENGTH]) {
+int findProfile(struct player base[STRUCTLENGTH],char fname[LENGTH]) {
   int index;
 
-  for(int i=0;i<structLength;i++) {
+  for(int i=0;i<STRUCTLENGTH;i++) {
     if(strcmp(base[i].fname,fname)==0)
       index = i;
   }
   return index;
 }
-void recordLookup(struct player base[structLength]) {
+void recordLookup(struct player base[STRUCTLENGTH]) {
   char name[LENGTH];
   int flag=0;
 
   printf("What is the first name of the player you are looking for?\n");
   scanf("%s",name);
 
-  for(int i=0;i<structLength;i++) {
+  for(int i=0;i<STRUCTLENGTH;i++) {
     if(strcmp(base[i].fname,name)==0) {
       printf("Wins: %d\tLosses: %d\n",base[i].win,base[i].loss);
       flag=1;
