@@ -86,7 +86,7 @@ void playerMenu() {
   scanProfiles(database); //issues is scan profile
 
   while(input!=5){
-    //clearzeroes(database); GHETTO TEMP FIX
+    clearzeroes(database);
     fileprintProfiles(database);
 
     printf("1. Start a standard game\n");
@@ -146,6 +146,7 @@ void clearzeroes(struct player base[STRUCTLENGTH]) {
     if(strcmp(base[i].fname,"0")==0) {
       strcpy(base[i].fname,"");
       strcpy(base[i].lname,"");
+      profilecounter--;
     }
   }
 }
